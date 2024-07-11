@@ -16,9 +16,6 @@
             left: 0px;
         }
 
-        .menu-product.call {
-            height: 160px !important;
-        }
 
         .menu-product:hover {
             filter: var(--menu-link-image-tint,brightness(0.65) blur(0px));
@@ -71,16 +68,8 @@
             opacity: 0.7;
         }
 
-        .write-info .text {
-            padding-left: 14px;
-            padding-right: 14px;
-            margin-bottom: 14px;
-            font-size: 16px;
-        }
 
-        .write-info .loop {
-            font-size: 20px;
-        }
+
 
 
         .menu-body {
@@ -90,12 +79,11 @@
             align-items: stretch;
             align-content: start;
             list-style: none;
-            overflow-x: overlay;
-            margin: -12px -14px 0px;
+            overflow-x: auto;
             padding: 12px 14px 10px;
             width: auto;
             scroll-padding: 28px;
-            gap: 14px;
+            gap: 8px;
         }
 
         .menu-body > li {
@@ -144,6 +132,7 @@
             display: block;
             background: #ffffff;
             text-align: center;
+            margin-top: 65px;
         }
 
         #cont {
@@ -179,46 +168,158 @@
             color:#000000;
         }
 
-        .bg-contact {
-            background: url({{ asset('img/contact/restorant.jpg') }});
-            height: 500px;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            position: relative;
+
+
+        .card-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.14);
+            padding: 1rem 0;
         }
-        .overlay-contact {
+
+
+        .blinq-card {
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            border-radius: 12px;
+            background: #fff;
+            width: 100%;
+            box-shadow: rgba(15, 15, 15, .05) 0px 0px 0px 1px,
+            rgba(15, 15, 15, .1) 0px 3px 6px, rgba(15, 15, 15, .2) 0px 9px 24px;
+        }
+
+
+        .card-header {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            padding-top: 42%;
+            border-top-right-radius: 12px;
+            border-top-left-radius: 12px;
+        }
+
+
+        .banner-image-container {
+            width: 100%;
+        }
+
+
+        .card-header .banner-image {
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            max-width: 100%;
+            object-position: center center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            left: 0px;
+            top: 0px;
+        }
+
+
+        .left-picture {
+            position: absolute;
+            background: #fff;
+            transform-origin: center;
+            will-change: transform;
+            z-index: 2;
+            left: 31%;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
+        }
+
+
+        .left-picture .left-picture-img {
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            top: 5%;
+            left: 25%;
+            object-fit: cover;
+            object-position: center center;
+            /*box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);*/
+            border-radius: 50%;
+        }
+
+        .left-picture .name {
+            position: absolute;
+            top: 57%;
+            left: 34%;
+            font-size: 14px;
+            font-weight: 900;
+
+        }
+
+
+
+        .members {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .members .info {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
+            font-size: 10px;
+            padding: 5px;
+
         }
-        .contact-logo {
-            height: 50px;
-            width: 50px;
+
+        .members .info .img-body{
+            transition: box-shadow .2s, opacity .2s;
+            background: #fff;
+            transform-origin: center;
+            will-change: transform;
+            z-index: 2;
+            left: 5%;
+            width: 100px;
+            margin-bottom: 12px;
         }
-        .contact-restaurant-name {
-            font-size: 48px;
-            font-weight: bold;
+
+
+        .members .info .img-body img{
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+            object-position: center center;
+            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
+            border-radius: 50%;
         }
+
+
+
     </style>
 @endpush
 @section('content')
-    <div class="bg-contact">
-        <div class="overlay-contact">
-            <div class="contact-restaurant-name">OrderIn</div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
+    <div class="card-page">
+        <div id="blinq-card" class="blinq-card">
+            <header class="card-header" data-card-layout="2C" data-image-type="cover" data-has-floating-images="true" data-floating-left="profile">
+                <div class="banner-image-container">
+                    <img class="banner-image" alt="Banner"
+                         src="{{ asset('img/contact/restorant.jpg') }}" data-image-type="cover" data-editor-version="none">
+                </div>
+                <div class="left-picture" data-image-type="profile">
+                    <img class="left-picture-img" alt="profile"
+                         src="{{ asset('img/contact/vizit.jpg') }}">
+                    <p class="name">
+                        OrderIn
+                    </p>
+                </div>
+            </header>
             <div id="main-div">
                 <div id="win1" class="win1">
                     <div id="cont">
@@ -234,13 +335,13 @@
                                 </a>
                             </div>
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="mailto:info@orderin.am">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Mail</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="mailto:info@orderin.am">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Mail</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
                             <div style="width:70px;height:90px;">
                                 <a class="quad_link" href="sms:+37499883888">
@@ -265,13 +366,13 @@
                             </div>
 
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="https://www.google.com/maps/search/Admiral+Isakov+3/19">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Location</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="https://www.google.com/maps/search/Admiral+Isakov+3/19">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Location</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
 
                             <div style="width:70px;height:90px;">
@@ -286,13 +387,13 @@
                             </div>
 
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="viber://add?number=37499883888">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Viber</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="viber://add?number=37499883888">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Viber</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
 
                             <div style="width:70px;height:90px;">
@@ -354,33 +455,33 @@
                             </div>
 
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="#">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Youtube</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="#">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Youtube</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
 
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="#">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Еmployees</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="#">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Еmployees</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
 
                             {{--<div style="width:70px;height:90px;">--}}
-                                {{--<a class="quad_link" href="#">--}}
-                                    {{--<div class="quad">--}}
-                                        {{--<div class="quad_block">--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="quad_text">Discounts</div>--}}
-                                {{--</a>--}}
+                            {{--<a class="quad_link" href="#">--}}
+                            {{--<div class="quad">--}}
+                            {{--<div class="quad_block">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+                            {{--<div class="quad_text">Discounts</div>--}}
+                            {{--</a>--}}
                             {{--</div>--}}
 
                             <div style="width:70px;height:90px;">
@@ -393,12 +494,128 @@
                                     <div class="quad_text">Branches</div>
                                 </a>
                             </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/viber.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Viber</div>
+                                </a>
+                            </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/youtube.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Youtube</div>
+                                </a>
+                            </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/conact.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Contact</div>
+                                </a>
+                            </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/mms.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Mms</div>
+                                </a>
+                            </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/pracent.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Pracent</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
+            <div class="members">
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+                <div class="info">
+                    <div class="img-body">
+                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                    </div>
+                    <div class="name">
+                        <p>Պողոս Պողոսյան</p>
+                    </div>
+                    <div class="position">
+                        <p>Տնօրեն</p>
+                    </div>
+                </div>
+            </div>
             <ul class="menu-body">
                 <li class="menu-product_body">
                     <div class="menu-product text-center" style="background: url({{ asset('img/contact/documentation.jpg') }});background-size: cover; background-position: center ">
@@ -419,6 +636,7 @@
             </ul>
         </div>
     </div>
+
 @endsection
 
 {{--@push('scripts')--}}
