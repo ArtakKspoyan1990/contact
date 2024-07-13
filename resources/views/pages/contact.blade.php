@@ -670,10 +670,10 @@
                                 <a class="quad_link" href="#">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/branches.jpeg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/location.jpeg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Branches</div>
+                                    <div class="quad_text">Location</div>
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
@@ -720,10 +720,20 @@
                                 <a class="quad_link" href="#">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/pracent.jpg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/disconts.jpg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Pracent</div>
+                                    <div class="quad_text">Disconts</div>
+                                </a>
+                            </div>
+                            <div style="width:70px;height:90px;">
+                                <a class="quad_link" href="#">
+                                    <div class="quad">
+                                        <div class="quad_block">
+                                            <img src="{{ asset('img/contact/icon/branchs.jpg') }}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="quad_text">Branchs</div>
                                 </a>
                             </div>
                         </div>
