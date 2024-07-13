@@ -1,6 +1,162 @@
 @extends('layouts.app')
 @push('styles')
     <style type="text/css">
+        .collapse-container {
+            width:355px;
+            margin: 30px auto 30px;
+            border-radius:25px;
+            background: #E9E9E9;
+        }
+
+        .collapse-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            border-radius:25px;
+            background: #E9E9E9;
+        }
+
+        .collapse-button .icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+            position: absolute;
+            left: 16%;
+            width: 10px;
+            margin-top: -2px;
+        }
+
+
+        .collapse-button .name {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .collapse-button:focus {
+            outline:unset;
+        }
+
+        .collapse-content {
+            padding: 10px;
+            display: none;
+            justify-content:center;
+            position:relative;
+            width:100%;
+            height:450px;
+            outline:none;
+        }
+
+        .collapse-content.open {
+            display: block;
+        }
+
+        .collapse-button.active .icon {
+            transform: rotate(90deg);
+        }
+
+        .appointment_book1-bord {
+            display: block;
+            inset: 0px;
+            visibility: visible;
+            z-index: 101;
+            opacity: 1;
+            box-shadow: rgb(0, 0, 0) 0px 0px 0px;
+            border-radius: 0px; position: absolute;
+            width: 355px;
+            height: 450px;
+        }
+
+        .appointment_book1-frame-table {
+            position: relative;
+            display: block;
+            margin-bottom: 0px;
+            overflow-y: hidden;
+            z-index: 1;
+            width: 355px;
+            height: 450px;
+        }
+
+        .appointment_book1-table-box {
+            position: absolute;
+            display: block;
+            left: 0px;
+            overflow: hidden;
+            width: 355px;
+            height: 450px;
+            top: 0px;
+        }
+
+
+        .appointment_book1-table-content {
+            display:inline-block;
+            border-spacing:0px;
+        }
+
+        .appointment_book1-table-child {
+            box-sizing: border-box;
+            width: 90%;
+            margin: 0 auto
+        }
+
+        .appointment_book1-table-child .dif-input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            outline: none;
+            border-radius: 10px
+        }
+
+        .appointment_book1-table-child .textarea-input {
+            width: 100%;
+            height: 100px;
+            box-sizing: border-box;
+            border: 1px solid #aaaaaa;
+            outline: none;
+            border-radius: 10px
+        }
+
+        .appointment_book1-obj-day {
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid #aaaaaa;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+
+        .hfm_button-body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 56px;
+            padding-bottom: 17px;
+        }
+
+        .hfm_button {
+            margin-top: 1px;
+            margin-left: 5px;
+            display: inline-block;
+            height: 36px;
+            background: black;
+            border-radius: 16px;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .appointment_book1-data-hour-element, .appointment_book1-data-minute-element {
+            width: 60px;
+            box-sizing: border-box;
+            padding: 10px;
+            border: 1px solid #aaaaaa;
+            outline: none;
+            border-radius: 10px
+        }
+
+
         .menu-product {
             background-position: center center;
             border-radius: 17px;
@@ -15,7 +171,6 @@
             top: 0px;
             left: 0px;
         }
-
 
         .menu-product:hover {
             filter: var(--menu-link-image-tint,brightness(0.65) blur(0px));
@@ -132,7 +287,7 @@
             display: block;
             background: #ffffff;
             text-align: center;
-            margin-top: 65px;
+            margin-top: 95px;
         }
 
         #cont {
@@ -231,7 +386,8 @@
             transform-origin: center;
             will-change: transform;
             z-index: 2;
-            left: 31%;
+            left: 32%;
+            top: 69%;
             width: 150px;
             height: 150px;
             border-radius: 50%;
@@ -261,46 +417,72 @@
         }
 
 
-
-        .members {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-
-        .members .info {
+        .save-btn-container {
+            margin-top: 1.25rem;
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            font-size: 10px;
-            padding: 5px;
-
-        }
-
-        .members .info .img-body{
-            transition: box-shadow .2s, opacity .2s;
-            background: #fff;
-            transform-origin: center;
-            will-change: transform;
-            z-index: 2;
-            left: 5%;
-            width: 100px;
-            margin-bottom: 12px;
+            gap: 1rem;
+            position: sticky;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.9) 40%);
+            padding: 1.5rem 2rem calc(1.75rem +  0rem);
+            z-index: 999;
+            border-bottom-right-radius: 12px;
+            border-bottom-left-radius: 12px;
         }
 
 
-        .members .info .img-body img{
+        .save-btn {
+            max-width: 220px;
             width: 100%;
-            height: 100%;
+            position: relative;
+            height: 3.5rem;
+            padding: .75rem 2.5rem;
+            border-radius: 80px;
+            white-space: nowrap;
+            font-weight: 700;
+            font-size: 1.375rem;
+            letter-spacing: .3px;
+            background: rgb(251, 146, 65);
+            color: #fff;
+            border: unset;
+            box-shadow: 0 1px 5px 0 rgba(82, 93, 102, .25), 0 2px 8px 0 rgba(82, 93, 102, .15);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .save-btn:focus {
+            outline:unset;
+        }
+
+
+        .save-btn:before {
+            content: "";
+            position: absolute;
             top: 0;
             left: 0;
-            object-fit: cover;
-            object-position: center center;
-            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
-            border-radius: 50%;
+            border-radius: 80px;
+            background: rgba(0, 0, 0, 0);
+            width: 100%;
+            height: 100%;
+            background: rgba( 251, 146, 65, 0.8);
+            animation: ripples 3s ease-in 3;
+            z-index: -1;
         }
 
 
+        .progress {
+            height: 4px;
+            width: 0;
+            background-color:white;
+            position: absolute;
+            bottom: -1px;
+            border-radius: 2px;
+        }
 
     </style>
 @endpush
@@ -328,7 +510,7 @@
                                 <a class="quad_link" href="tel:+37499883888">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/phone.jpeg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/phone.jpg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="quad_text">Phone</div>
@@ -498,7 +680,7 @@
                                 <a class="quad_link" href="#">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/viber.jpg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/viber.jpeg') }}" alt="">
                                         </div>
                                     </div>
                                     <div class="quad_text">Viber</div>
@@ -515,13 +697,13 @@
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
+                                <a class="quad_link" href="{{ route('employees') }}">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/conact.jpg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/employees.jpg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Contact</div>
+                                    <div class="quad_text">Employees</div>
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
@@ -531,7 +713,7 @@
                                             <img src="{{ asset('img/contact/icon/mms.jpg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Mms</div>
+                                    <div class="quad_text">Mail</div>
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
@@ -548,71 +730,194 @@
                     </div>
                 </div>
             </div>
-            <div class="members">
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
+            <div class="collapse-container">
+                <button class="collapse-button">
+                    <span class="icon">
+                        <img src="{{asset('img/contact/icon/right.svg')}}" alt="">
+                    </span>
+                    <span class="name">Book a visit</span>
+                </button>
+                <div class="collapse-content">
+                    <div tabindex="0" class="appointment_book1-bord">
+                        <div class="appointment_book1-frame">
+                            <div class="appointment_book1-frame-table">
+                                <div class="appointment_book1-table-box">
+                                    <div class="appointment_book1-table-content">
+                                        <div class="appointment_book1-table-child">
+                                            <table border="0" style="width:100%;box-sizing:border-box;">
+                                                <tbody>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" class="dif-input" placeholder="First name" spellcheck="true" value="">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="padding:5px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="" class="">
+                                                                        <input type="text" class="dif-input " placeholder="Last name" spellcheck="true" value="">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="padding:5px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="email" class="dif-input" placeholder="E-mail" spellcheck="true" value="">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="padding:5px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="tel" class="dif-input" placeholder="37433220094" spellcheck="true" value="">
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="padding:5px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="width:210px;border:0px solid #000000;text-align:left;">
+                                                        <input type="date" name="day" class="appointment_book1-obj-day" value="{{  Carbon\Carbon::today()->toDateString()}}">
+                                                    </td>
+                                                    <td style="border:0px solid #000000;text-align:left;padding-left:2px;width:80px;">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="" class="">
+                                                                        <select class="appointment_book1-data-hour-element">
+                                                                            <option value="0"></option>
+                                                                            <option value="1">00</option>
+                                                                            <option value="2">01</option>
+                                                                            <option value="3">02</option>
+                                                                            <option value="4">03</option>
+                                                                            <option value="5">04</option>
+                                                                            <option value="6">05</option>
+                                                                            <option value="7">06</option>
+                                                                            <option value="8">07</option>
+                                                                            <option value="9">08</option>
+                                                                            <option value="10">09</option>
+                                                                            <option value="11">10</option>
+                                                                            <option value="12">11</option>
+                                                                            <option value="13">12</option>
+                                                                            <option value="14">13</option>
+                                                                            <option value="15">14</option>
+                                                                            <option value="16">15</option>
+                                                                            <option value="17">16</option>
+                                                                            <option value="18">17</option>
+                                                                            <option value="19">18</option>
+                                                                            <option value="20">19</option>
+                                                                            <option value="21">20</option>
+                                                                            <option value="22">21</option>
+                                                                            <option value="23">22</option>
+                                                                            <option value="24">23</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                    <td style="text-align:center;">:</td>
+                                                    <td style="border:0px solid #000000; text-align:left">
+                                                        <div id="id-appointment_book1-data-minute-obj" style="" class="">
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <select class="appointment_book1-data-minute-element">
+                                                                            <option value="0"></option>
+                                                                            <option value="00">00</option>
+                                                                            <option value="05">05</option>
+                                                                            <option value="10">10</option>
+                                                                            <option value="15">15</option>
+                                                                            <option value="20">20</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="30">30</option>
+                                                                            <option value="35">35</option>
+                                                                            <option value="40">40</option>
+                                                                            <option value="45">45</option>
+                                                                            <option value="50">50</option>
+                                                                            <option value="55">55</option>
+                                                                        </select>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4" style="padding:5px"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4">
+                                                        <div>
+                                                            <table border="0" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td style="" class="">
+                                                                        <textarea spellcheck="true" class="textarea-input" placeholder="Message"></textarea>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="hfm_button-body">
+                                                <button type="button" class="hfm_button">Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -634,15 +939,25 @@
                     <p class="text-center title">Photo archive</p>
                 </li>
             </ul>
+            <div id="save-btn-container" class="save-btn-container">
+                <button id="save-contact-btn" data-type="primary" data-size="large" onclick="Blinq.handleSaveContactBtnClick(false)" data-app-clip="false" data-variant="primary" class="save-btn">
+                    <span>Save Contact</span>
+                    <div class="progress"></div>
+                </button>
+            </div>
         </div>
     </div>
 
 @endsection
 
-{{--@push('scripts')--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
-            {{--$(".banner").remove();--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endpush--}}
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.collapse-button').on('click', function() {
+                $(this).toggleClass('active');
+                $(this).find('.icon').toggleClass('open');
+                $(this).next('.collapse-content').slideToggle();
+            });
+        });
+    </script>
+@endpush

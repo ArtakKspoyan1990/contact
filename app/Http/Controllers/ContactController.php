@@ -13,4 +13,13 @@ class ContactController extends Controller
     {
         return view('pages.contact');
     }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function employees()
+    {
+        return view('pages.employees');
+    }
 }
