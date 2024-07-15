@@ -103,13 +103,17 @@
             height: 45px;
             background-color: rgb(218, 165, 32);
             color: white;
-            border: none;
+            border: none !important;
             border-radius: 50%;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         .search-button:hover {
             background-color: rgb(218, 165, 32)
+        }
+
+        .search-button:focus {
+            outline: unset;
         }
         .search-input {
             display: none;
