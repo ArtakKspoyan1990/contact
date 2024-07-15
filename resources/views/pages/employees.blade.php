@@ -50,7 +50,7 @@
             will-change: transform;
             z-index: 2;
             left: 5%;
-            width: 160px;
+            width: 140px;
             margin-bottom: 12px;
         }
 
@@ -117,7 +117,7 @@
             margin-left: 10px;
         }
         .search-input input {
-            width: 100%;
+            width: 85%;
             padding: 5px 10px;
             border: 1px solid #ddd;
             border-radius: 50px;
