@@ -112,16 +112,17 @@
             background-color: rgb(218, 165, 32)
         }
 
-        .search-button:focus {
+        .search-button:focus, .search-input input:focus {
             outline: unset;
         }
+
         .search-input {
             display: none;
             flex-grow: 1;
-            margin-left: 10px;
+            margin-left: 20px;
+            width: 80px;
         }
         .search-input input {
-            width: 85%;
             padding: 5px 10px;
             border: 1px solid #ddd;
             border-radius: 50px;
