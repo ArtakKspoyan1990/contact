@@ -126,6 +126,7 @@
             padding: 5px 10px;
             border: 1px solid #ddd;
             border-radius: 50px;
+            width: 80%;
         }
     </style>
 @endpush
