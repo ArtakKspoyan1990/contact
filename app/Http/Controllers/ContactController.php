@@ -22,4 +22,12 @@ class ContactController extends Controller
     {
         return view('pages.employees');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function employer()
+    {
+        return view('pages.employer');
+    }
 }

@@ -223,10 +223,7 @@
             opacity: 0.7;
         }
 
-
-
-
-
+        
         .menu-body {
             display: flex;
             flex-flow: row;
@@ -287,7 +284,6 @@
             display: block;
             background: #ffffff;
             text-align: center;
-            margin-top: 95px;
         }
 
         #cont {
@@ -381,41 +377,39 @@
 
 
         .left-picture {
+            transition: box-shadow .2s, opacity .2s;
             position: absolute;
             background: #fff;
             transform-origin: center;
             will-change: transform;
             z-index: 2;
-            left: 32%;
-            top: 69%;
-            width: 150px;
-            height: 150px;
+            width: 27%;
+            padding-top: 27%;
             border-radius: 50%;
-            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
+            top: 83%;
         }
 
 
         .left-picture .left-picture-img {
             position: absolute;
-            width: 75px;
-            height: 75px;
-            top: 5%;
-            left: 25%;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
             object-fit: cover;
             object-position: center center;
-            /*box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);*/
+            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
             border-radius: 50%;
         }
 
-        .left-picture .name {
-            position: absolute;
-            top: 57%;
-            left: 34%;
-            font-size: 14px;
+
+        .name-company {
+            text-align: center;
+            font-size: 16px;
             font-weight: 900;
-
+            margin-top: 107px;
+            color: black;
         }
-
 
         .save-btn-container {
             margin-top: 1.25rem;
@@ -445,7 +439,7 @@
             font-weight: 700;
             font-size: 1.375rem;
             letter-spacing: .3px;
-            background: rgb(251, 146, 65);
+            background: rgb(218, 165, 32);
             color: #fff;
             border: unset;
             box-shadow: 0 1px 5px 0 rgba(82, 93, 102, .25), 0 2px 8px 0 rgba(82, 93, 102, .15);
@@ -496,12 +490,15 @@
                 </div>
                 <div class="left-picture" data-image-type="profile">
                     <img class="left-picture-img" alt="profile"
-                         src="{{ asset('img/contact/vizit.jpg') }}">
-                    <p class="name">
-                        OrderIn
-                    </p>
+                         src="{{ asset('img/contact/vizit.jpg') }}"
                 </div>
+
             </header>
+
+            <p class="name-company">
+                OrderIn
+            </p>
+
             <div id="main-div">
                 <div id="win1" class="win1">
                     <div id="cont">
@@ -950,7 +947,7 @@
                 </li>
             </ul>
             <div id="save-btn-container" class="save-btn-container">
-                <button id="save-contact-btn" data-type="primary" data-size="large" onclick="Blinq.handleSaveContactBtnClick(false)" data-app-clip="false" data-variant="primary" class="save-btn">
+                <button id="save-contact-btn" data-type="primary" data-size="large"  data-app-clip="false" data-variant="primary" class="save-btn">
                     <span>Save Contact</span>
                     <div class="progress"></div>
                 </button>
@@ -968,6 +965,24 @@
                 $(this).find('.icon').toggleClass('open');
                 $(this).next('.collapse-content').slideToggle();
             });
+            
+            $('#save-contact-btn').on('click', function () {
+                let contact = {
+                    name: 'John Doe',
+                    phone: '+1234567890',
+                    email: 'john.doe@example.com'
+                };
+
+                if (navigator.contacts) {
+                    navigator.contacts.save(contact, function() {
+                        alert('Contact saved successfully');
+                    }, function(error) {
+                        alert('Error saving contact: ' + error);
+                    });
+                } else {
+                    alert('Contacts API not supported');
+                }
+            })
         });
     </script>
 @endpush

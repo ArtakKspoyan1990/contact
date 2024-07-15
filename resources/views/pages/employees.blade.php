@@ -37,8 +37,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            font-size: 10px;
-            padding: 5px;
+            font-size: 15px;
+            padding: 25px;
+            cursor: pointer;
 
         }
 
@@ -49,7 +50,7 @@
             will-change: transform;
             z-index: 2;
             left: 5%;
-            width: 100px;
+            width: 160px;
             margin-bottom: 12px;
         }
 
@@ -64,13 +65,86 @@
             box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
             border-radius: 50%;
         }
+
+
+        .custom-switch {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            margin-right: 10px;
+        }
+        .custom-switch input[type="radio"] {
+            display: none;
+        }
+        .custom-switch label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 13px 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: unset;
+        }
+        .custom-switch input[type="radio"]:checked + label {
+            background-color: rgb(218, 165, 32);
+            color: white;
+        }
+        .custom-switch label .fas {
+            font-size: 1.2rem;
+        }
+        .search-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(218, 165, 32);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-button:hover {
+            background-color: rgb(218, 165, 32)
+        }
+        .search-input {
+            display: none;
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .search-input input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+        }
     </style>
 @endpush
 @section('content')
     <div class="card-page">
         <div id="blinq-card" class="blinq-card">
+            <div class="container my-4">
+                <div class="d-flex align-items-center">
+                    <div class="custom-switch">
+                        <input type="radio" id="gridView" name="view" checked>
+                        <label for="gridView"><i class="fas fa-th"></i></label>
+                        <input type="radio" id="listView" name="view">
+                        <label for="listView"><i class="fas fa-bars"></i></label>
+                    </div>
+                    <button class="search-button" id="searchButton">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-input" id="searchInput">
+                        <input type="text" placeholder="Որոնում..." id="searchBox">
+                    </div>
+                </div>
+            </div>
             <div class="members">
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -81,7 +155,7 @@
                         <p>Տնօրեն</p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -92,7 +166,7 @@
                         <p>Տնօրեն</p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -103,7 +177,7 @@
                         <p>Տնօրեն</p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -114,7 +188,7 @@
                         <p>Տնօրեն</p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -125,7 +199,7 @@
                         <p>Տնօրեն</p>
                     </div>
                 </div>
-                <div class="info">
+                <div class="info" data-href="{{ route('employer') }}">
                     <div class="img-body">
                         <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
                     </div>
@@ -142,10 +216,39 @@
 
 @endsection
 
-{{--@push('scripts')--}}
-    {{--<script>--}}
-        {{--$(document).ready(function() {--}}
-            {{--$(".banner").remove();--}}
-        {{--});--}}
-    {{--</script>--}}
-{{--@endpush--}}
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#searchButton').click(function() {
+                $('#searchInput').toggle();
+                $('#searchBox').focus();
+            });
+
+            $('#searchBox').on('input', function() {
+                var query = $(this).val().toLowerCase();
+                $('.members .info').each(function() {
+                   let name = $(this).find('.name p').text().toLowerCase();
+                    if (name.includes(query)) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+
+
+            $('input[name="view"]').change(function() {
+                if ($('#gridView').is(':checked')) {
+                    $('.members').removeClass('flex-column');
+                } else if ($('#listView').is(':checked')) {
+                    $('.members').addClass('flex-column');
+                }
+            });
+            
+            $('.info').on('click', function () {
+                location.href = $(this).data('href');
+            })
+
+        });
+    </script>
+@endpush
