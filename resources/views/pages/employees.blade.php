@@ -83,7 +83,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 13px 18px;
+            padding: 10px 11px;
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: unset;
@@ -99,8 +99,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             background-color: rgb(218, 165, 32);
             color: white;
             border: none;
