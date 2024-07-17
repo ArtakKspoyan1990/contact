@@ -43,7 +43,6 @@ class ContactController extends Controller
     {
         try {
 
-
             $url = env('BACK_URL') . '/api/big-company/' . $id;
             $response =  Http::get($url);
             dd($response->json());
