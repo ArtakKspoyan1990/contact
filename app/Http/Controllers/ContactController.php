@@ -42,10 +42,8 @@ class ContactController extends Controller
     public function bigCompany($id)
     {
         try {
-
             $url = env('BACK_URL') . '/api/big-company/' . $id;
             $response =  Http::get($url);
-            dd($response->json());
             if($response->ok()) {;
                 $data =  $response->json();
                 return view('pages.big_company', compact('data'));
@@ -54,7 +52,6 @@ class ContactController extends Controller
 
 
         } catch (\Exception $e) {
-            dd($e->getMessage());
             abort(404);
         }
     }
