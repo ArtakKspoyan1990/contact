@@ -13,9 +13,18 @@ class ContactController extends Controller
 
     public function __construct()
     {
+        $stack = \GuzzleHttp\HandlerStack::create();
+        $stack->push(
+            \GuzzleHttp\Middleware::log(
+                new \Monolog\Logger('Logger'),
+                new \Monolog\Handler\StreamHandler(storage_path('logs/guzzle.log')),
+                \GuzzleHttp\MessageFormatter::DEBUG
+            )
+        );
         $this->client = new Client([
             'base_uri' =>  env('BACK_URL') . '/api/',
-            'timeout'  => 5.0,
+            'timeout'  => 20.0,
+            'handler' => $stack,
         ]);
     }
 
