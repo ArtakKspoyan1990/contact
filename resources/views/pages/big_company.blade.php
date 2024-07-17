@@ -486,17 +486,16 @@
             <header class="card-header" data-card-layout="2C" data-image-type="cover" data-has-floating-images="true" data-floating-left="profile">
                 <div class="banner-image-container">
                     <img class="banner-image" alt="Banner"
-                         src="{{ asset('img/contact/restorant.jpg') }}" data-image-type="cover" data-editor-version="none">
+                         src="{{ $data['bg_image'] }}" data-image-type="cover" data-editor-version="none">
                 </div>
                 <div class="left-picture" data-image-type="profile">
-                    <img class="left-picture-img" alt="profile"
-                         src="{{ asset('img/contact/vizit.jpg') }}">
+                    <img class="left-picture-img" alt="profile" src="{{ $data['logo'] }}">
                 </div>
 
             </header>
 
             <p class="name-company">
-                OrderIn
+                {{ $data['full_name'] }}
             </p>
 
             <div id="main-div">
@@ -504,7 +503,7 @@
                     <div id="cont">
                         <div class="cont_block">
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="tel:+37499883888">
+                                <a class="quad_link" href="tel:{{$data['phone']}}">
                                     <div class="quad">
                                         <div class="quad_block">
                                             <img src="{{ asset('img/contact/icon/phone.jpg') }}" alt="">
@@ -513,36 +512,30 @@
                                     <div class="quad_text">Phone</div>
                                 </a>
                             </div>
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="mailto:info@orderin.am">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Mail</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="sms:+37499883888">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/sms.jpeg') }}" alt="">
+                            @if($data['sms'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="sms:{{$data['sms']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/sms.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">SMS</div>
-                                </a>
-                            </div>
-
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="https://orderin.am/ru">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/website.jpeg') }}" alt="">
+                                        <div class="quad_text">SMS</div>
+                                    </a>
+                                </div>
+                            @endif
+                            @if($data['website'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{ $data['website'] }}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/website.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Website</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Website</div>
+                                    </a>
+                                </div>
+                            @endif
 
                             {{--<div style="width:70px;height:90px;">--}}
                             {{--<a class="quad_link" href="https://www.google.com/maps/search/Admiral+Isakov+3/19">--}}
@@ -554,145 +547,126 @@
                             {{--</a>--}}
                             {{--</div>--}}
 
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="https://api.whatsapp.com/send?phone=37499883888">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/whatsapp.jpeg') }}" alt="">
+                            @if($data['whats_app'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="https://api.whatsapp.com/send?phone={{$data['whats_app']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/whatsapp.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">WhatsApp</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">WhatsApp</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="viber://add?number=37499883888">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Viber</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
 
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="tg://resolve?domain=+79661111250">
-                                    {{--<a class="quad_link" href="https://t.me/L4vcard">--}}
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/telegram.jpeg') }}" alt="">
+                            @if($data['telegram'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="tg://resolve?domain={{$data['telegram']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/telegram.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Telegram</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Telegram</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            <div style="width:70px;height:90px;">
-                                {{--<a class="quad_link" href="https://www.facebook.com/L4VisitCard">--}}
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/facebook.jpeg') }}" alt="">
+
+                            @if($data['facebook'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{$data['facebook']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/facebook.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Facebook</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Facebook</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            <div style="width:70px;height:90px;">
-                                {{--<a class="quad_link" href="https://www.facebook.com/messages/t/101396131216437">--}}
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/messenger.jpeg') }}" alt="">
+                            @if($data['messenger'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{ $data['messenger'] }}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/messenger.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Messenger</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Messenger</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="https://www.instagram.com/orderin_yerevan/reel/C0iyVPOsQw7/?next=%2Frachdavenportxx%2Ftagged%2F&hl=es">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/instagram.jpeg') }}" alt="">
+                            @if($data['instagram'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{$data['instagram']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/instagram.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Instagram</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Instagram</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/tiktok.jpeg') }}" alt="">
+                            @if($data['tik_tok'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{ $data['tik_tok'] }}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/tiktok.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">TikTok</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">TikTok</div>
+                                    </a>
+                                </div>
+                            @endif
 
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Youtube</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
 
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Еmployees</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Discounts</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/location.jpeg') }}" alt="">
+                            @if($data['location'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{$data['location']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/location.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Location</div>
-                                </a>
-                            </div>
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/viber.jpeg') }}" alt="">
+                                        <div class="quad_text">Location</div>
+                                    </a>
+                                </div>
+                            @endif
+
+                            @if($data['viber'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="viber://add?number={{$data['viber']}}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/viber.jpeg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Viber</div>
-                                </a>
-                            </div>
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/youtube.jpg') }}" alt="">
+                                        <div class="quad_text">Viber</div>
+                                    </a>
+                                </div>
+                            @endif
+
+                            @if($data['youtube'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{ $data['youtube'] }}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/youtube.jpg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Youtube</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Youtube</div>
+                                    </a>
+                                </div>
+                            @endif
+
                             <div style="width:70px;height:90px;">
                                 <a class="quad_link" href="{{ route('employees') }}">
                                     <div class="quad">
@@ -703,8 +677,9 @@
                                     <div class="quad_text">Employees</div>
                                 </a>
                             </div>
+
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
+                                <a class="quad_link" href="mailto:{{$data['email']}}">
                                     <div class="quad">
                                         <div class="quad_block">
                                             <img src="{{ asset('img/contact/icon/mms.jpg') }}" alt="">
@@ -713,16 +688,19 @@
                                     <div class="quad_text">Mail</div>
                                 </a>
                             </div>
-                            <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
-                                    <div class="quad">
-                                        <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/disconts.jpg') }}" alt="">
+
+                            @if($data['disconts'])
+                                <div style="width:70px;height:90px;">
+                                    <a class="quad_link" href="{{ $data['disconts'] }}">
+                                        <div class="quad">
+                                            <div class="quad_block">
+                                                <img src="{{ asset('img/contact/icon/disconts.jpg') }}" alt="">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="quad_text">Disconts</div>
-                                </a>
-                            </div>
+                                        <div class="quad_text">Disconts</div>
+                                    </a>
+                                </div>
+                            @endif
                             <div style="width:70px;height:90px;">
                                 <a class="quad_link" href="#">
                                     <div class="quad">
@@ -968,9 +946,9 @@
             
             $('#save-contact-btn').on('click', function () {
                 let contact = {
-                    name: 'John Doe',
-                    phone: '+1234567890',
-                    email: 'john.doe@example.com'
+                    name: `{{ $data['full_name'] }}`,
+                    phone: `{{ $data['phone'] }}`,
+                    email: `{{ $data['email'] }}`,
                 };
 
                 if (navigator.contacts) {
