@@ -43,16 +43,9 @@ class ContactController extends Controller
     {
         try {
 
-            $headers = [
-                'Timeout' => '15',
-                'Content-Type' => 'application/json',
-                'Accept' => 'application/json'
-            ];
 
             $url = env('BACK_URL') . '/api/big-company/' . $id;
-            $response = Http::withHeaders($headers)->send('GET',   $url);
-            $token = null;
-
+            $response =  Http::get($url);
             if($response->ok()) {;
                 $data =  $response->json();
                 return view('pages.big_company', compact('data'));
