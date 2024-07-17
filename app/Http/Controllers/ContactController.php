@@ -42,13 +42,27 @@ class ContactController extends Controller
     public function bigCompany($id)
     {
         try {
+            $curl = curl_init();
+
             $url = env('BACK_URL') . '/api/big-company/' . $id;
-            $response =  Http::get($url);
-            if($response->ok()) {;
-                $data =  $response->json();
-                return view('pages.big_company', compact('data'));
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'GET',
+            ));
+
+            $data = json_decode(curl_exec($curl) , true);
+            curl_close($curl);
+
+            if( $data == 'error') {
+                abort(404);
             }
-            abort(404);
+            return view('pages.big_company', compact('data'));
 
 
         } catch (\Exception $e) {
