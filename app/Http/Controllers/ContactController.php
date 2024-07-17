@@ -2,23 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Http;
+
 
 class ContactController extends Controller
 {
-
-    protected $client;
-
-    public function __construct()
-    {
-        $this->client = new Client([
-            'base_uri' =>  env('BACK_URL') . '/api/',
-            'timeout'  => 20.0,
-        ]);
-    }
-
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
@@ -45,22 +33,34 @@ class ContactController extends Controller
         return view('pages.employer');
     }
 
+
     /**
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
      */
     public function bigCompany($id)
     {
         try {
-            $response = $this->client->request('GET', "big-company/{$id}", [
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
-            ]);
-            $data = json_decode($response->getBody()->getContents(), true);
-            return view('pages.big_company', compact('data'));
-        } catch (RequestException $e) {
+
+            $headers = [
+                'Timeout' => '15',
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ];
+
+            $url = env('BACK_URL') . '/api/big-company/' . $id;
+            $response = Http::withHeaders($headers)->send('GET',   $url);
+            $token = null;
+
+            if($response->ok()) {;
+                $data =  $response->json();
+                return view('pages.big_company', compact('data'));
+            }
+            abort(404);
+
+
+        } catch (\Exception $e) {
             abort(404);
         }
     }
