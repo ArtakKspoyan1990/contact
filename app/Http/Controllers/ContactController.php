@@ -46,6 +46,7 @@ class ContactController extends Controller
 
             $url = env('BACK_URL') . '/api/big-company/' . $id;
             $response =  Http::get($url);
+            dd($response->json());
             if($response->ok()) {;
                 $data =  $response->json();
                 return view('pages.big_company', compact('data'));
