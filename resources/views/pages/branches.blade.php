@@ -27,13 +27,13 @@
 
 
 
-        .members {
+        .branches {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
         }
 
-        .members .info {
+        .branches .info {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,24 +43,25 @@
 
         }
 
-        .members .info .img-body{
+        .branches .info .img-body{
             transition: box-shadow .2s, opacity .2s;
             background: #fff;
             transform-origin: center;
             will-change: transform;
             z-index: 2;
             left: 5%;
-            width: 140px;
+            width: 123px;
+            height: 123px;
             margin-bottom: 12px;
         }
 
 
-        .members .info .img-body img{
+        .branches .info .img-body img{
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            object-fit: cover;
+            object-fit: scale-down;
             object-position: center center;
             box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
             border-radius: 50%;
@@ -149,71 +150,37 @@
                     </div>
                 </div>
             </div>
-            <div class="members">
-                <div class="info" data-href="{{ route('employer') }}">
+            <div class="branches">
+                <div class="info" data-href="{{ route('contact') }}">
                     <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
+                        <img src="{{ asset('img/contact/logo.jpg') }}" alt="">
                     </div>
                     <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
+                        <p>Any Card</p>
                     </div>
                 </div>
-                <div class="info" data-href="{{ route('employer') }}">
+                <div class="info" data-href="{{ route('contact') }}">
                     <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
+                        <img src="{{ asset('img/contact/logo.jpg') }}" alt="">
                     </div>
                     <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
+                        <p>Any Card</p>
                     </div>
                 </div>
-                <div class="info" data-href="{{ route('employer') }}">
+                <div class="info" data-href="{{ route('contact') }}">
                     <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
+                        <img src="{{ asset('img/contact/logo.jpg') }}" alt="">
                     </div>
                     <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
+                        <p>Any Card</p>
                     </div>
                 </div>
-                <div class="info" data-href="{{ route('employer') }}">
+                <div class="info" data-href="{{ route('contact') }}">
                     <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
+                        <img src="{{ asset('img/contact/logo.jpg') }}" alt="">
                     </div>
                     <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info" data-href="{{ route('employer') }}">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
-                    </div>
-                </div>
-                <div class="info" data-href="{{ route('employer') }}">
-                    <div class="img-body">
-                        <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
-                    </div>
-                    <div class="name">
-                        <p>Պողոս Պողոսյան</p>
-                    </div>
-                    <div class="position">
-                        <p>Տնօրեն</p>
+                        <p>Any Card</p>
                     </div>
                 </div>
             </div>
@@ -232,7 +199,7 @@
 
             $('#searchBox').on('input', function() {
                 var query = $(this).val().toLowerCase();
-                $('.members .info').each(function() {
+                $('.branches .info').each(function() {
                    let name = $(this).find('.name p').text().toLowerCase();
                     if (name.includes(query)) {
                         $(this).show();
@@ -245,9 +212,9 @@
 
             $('input[name="view"]').change(function() {
                 if ($('#gridView').is(':checked')) {
-                    $('.members').removeClass('flex-column');
+                    $('.branches').removeClass('flex-column');
                 } else if ($('#listView').is(':checked')) {
-                    $('.members').addClass('flex-column');
+                    $('.branches').addClass('flex-column');
                 }
             });
             

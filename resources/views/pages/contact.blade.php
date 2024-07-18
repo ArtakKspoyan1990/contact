@@ -396,7 +396,7 @@
             height: 100%;
             top: 0;
             left: 0;
-            object-fit: cover;
+            object-fit: scale-down;
             object-position: center center;
             box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
             border-radius: 50%;
@@ -490,13 +490,13 @@
                 </div>
                 <div class="left-picture" data-image-type="profile">
                     <img class="left-picture-img" alt="profile"
-                         src="{{ asset('img/contact/vizit.jpg') }}">
+                         src="{{ asset('img/contact/logo.jpg') }}">
                 </div>
 
             </header>
 
             <p class="name-company">
-                OrderIn
+                Any Card
             </p>
 
             <div id="main-div">
@@ -534,7 +534,7 @@
                             </div>
 
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="https://orderin.am/ru">
+                                <a class="quad_link" href="https://www.anycard.am">
                                     <div class="quad">
                                         <div class="quad_block">
                                             <img src="{{ asset('img/contact/icon/website.jpeg') }}" alt="">
@@ -612,7 +612,7 @@
                             </div>
 
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="https://www.instagram.com/orderin_yerevan/reel/C0iyVPOsQw7/?next=%2Frachdavenportxx%2Ftagged%2F&hl=es">
+                                <a class="quad_link" href="https://www.instagram.com/any_card_?igsh=bnI3eWg5MmFkMm5x&utm_source=qr">
                                     <div class="quad">
                                         <div class="quad_block">
                                             <img src="{{ asset('img/contact/icon/instagram.jpeg') }}" alt="">
@@ -704,7 +704,7 @@
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
+                                <a class="quad_link" href="mailto:anycard.yerevan@gmail.com">
                                     <div class="quad">
                                         <div class="quad_block">
                                             <img src="{{ asset('img/contact/icon/mms.jpg') }}" alt="">
@@ -724,13 +724,13 @@
                                 </a>
                             </div>
                             <div style="width:70px;height:90px;">
-                                <a class="quad_link" href="#">
+                                <a class="quad_link" href="{{ route('branches') }}">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/branchs.jpg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/branches.jpg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Branchs</div>
+                                    <div class="quad_text">Branches</div>
                                 </a>
                             </div>
                         </div>

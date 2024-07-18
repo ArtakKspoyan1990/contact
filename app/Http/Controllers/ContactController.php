@@ -28,6 +28,14 @@ class ContactController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
+    public function branches()
+    {
+        return view('pages.branches');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function employer()
     {
         return view('pages.employer');

@@ -76,7 +76,7 @@
         <div id="blinq-card" class="blinq-card">
             <div class="contact-card">
                 {{--<img src="https://via.placeholder.com/100" alt="Profile Picture">--}}
-                <img src="{{ asset('img/contact/members/poxos.jpg') }}" alt="">
+                <img src="{{ asset('img/contact/members/man.jpg') }}" alt="">
                 <h2>Պողոս Պողոսյան</h2>
                 <p>Տնօրեն</p>
                 <div class="info">

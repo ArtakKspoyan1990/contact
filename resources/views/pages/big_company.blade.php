@@ -705,10 +705,10 @@
                                 <a class="quad_link" href="#">
                                     <div class="quad">
                                         <div class="quad_block">
-                                            <img src="{{ asset('img/contact/icon/branchs.jpg') }}" alt="">
+                                            <img src="{{ asset('img/contact/icon/branches.jpg') }}" alt="">
                                         </div>
                                     </div>
-                                    <div class="quad_text">Branchs</div>
+                                    <div class="quad_text">Branches</div>
                                 </a>
                             </div>
                         </div>

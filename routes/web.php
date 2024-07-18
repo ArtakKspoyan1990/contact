@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ContactController::class, 'index']);
+Route::get('/', [ContactController::class, 'index'])->name('contact');
 Route::get('/employees', [ContactController::class, 'employees'])->name('employees');
+Route::get('/branches', [ContactController::class, 'branches'])->name('branches');
 Route::get('/employer', [ContactController::class, 'employer'])->name('employer');
 Route::get('/big-company/{id}', [ContactController::class, 'bigCompany']);
