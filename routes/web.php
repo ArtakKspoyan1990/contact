@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +21,14 @@ Route::get('/employees', [ContactController::class, 'employees'])->name('employe
 Route::get('/branches', [ContactController::class, 'branches'])->name('branches');
 Route::get('/employer', [ContactController::class, 'employer'])->name('employer');
 Route::get('/big-company/{id}', [ContactController::class, 'bigCompany']);
+
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::get('/login', [LoginController::class, 'show'])->name('login');
+    Route::post('/login/perform', [LoginController::class, 'login'])->name('login.perform');
+
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    });
+});
