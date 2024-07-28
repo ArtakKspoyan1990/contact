@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\Admin\CompanyController;
+use App\Http\Controllers\Dashboard\Admin\HomeController;
 use App\Http\Controllers\Dashboard\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    });
+
+    Route::prefix('companies')->group(function () {
+        Route::get('/', [CompanyController::class, 'index'])->name('companies');
+        Route::get('/add', [CompanyController::class, 'add'])->name('companies.add');
+        Route::post('/store', [CompanyController::class, 'store'])->name('companies.store');
     });
 });

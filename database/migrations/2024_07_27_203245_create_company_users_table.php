@@ -18,7 +18,7 @@ class CreateCompanyUsersTable extends Migration
             $table->string('name')->unique();
             $table->string('security_key')->index();
             $table->string('password');
-            $table->integer('parent_id')->index();
+            $table->integer('parent_id')->index()->nullable();
             $table->smallInteger('role')->index();
             $table->boolean('status')->default(1)->index();
             $table->smallInteger('position')->default(1);
