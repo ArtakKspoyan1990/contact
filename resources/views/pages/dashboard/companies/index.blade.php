@@ -44,7 +44,7 @@
                                             <p class="text-sm font-weight-bold mb-0">
                                                 @if($item->role == 1)
                                                     {{ __('Big Company') }}
-                                                @elseif ($item->role == 2) {
+                                                @elseif ($item->role == 2)
                                                     {{ __('Company') }}
                                                 @else
                                                     {{  __('Individual') }}
