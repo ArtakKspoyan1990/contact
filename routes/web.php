@@ -3,8 +3,10 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\Admin\CompanyController;
 use App\Http\Controllers\Dashboard\Admin\HomeController;
-use App\Http\Controllers\Dashboard\LoginController;
+use App\Http\Controllers\Dashboard\Auth\CompanyLoginController;
+use App\Http\Controllers\Dashboard\Auth\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\Company\CompanyContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,18 +28,36 @@ Route::post('/save-contact', [ContactController::class, 'saveContact'])->name('s
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [LoginController::class, 'show'])->name('login');
-    Route::post('/login/perform', [LoginController::class, 'login'])->name('login.perform');
-
-    Route::prefix('dashboard')->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
+    Route::middleware('guest:admin')->group(function () {
+        Route::get('/login', [LoginController::class, 'show'])->name('login');
+        Route::post('/login/perform', [LoginController::class, 'login'])->name('login.perform');
     });
-
     Route::prefix('companies')->group(function () {
         Route::get('/', [CompanyController::class, 'index'])->name('companies');
         Route::get('/add', [CompanyController::class, 'add'])->name('companies.add');
         Route::post('/store', [CompanyController::class, 'store'])->name('companies.store');
     });
 });
+
+
+
+
+Route::prefix('company')->name('company.')->group(function () {
+    Route::middleware('guest:company_user')->group(function () {
+        Route::get('/login', [CompanyLoginController::class, 'show'])->name('login');
+        Route::post('/login/perform', [CompanyLoginController::class, 'login'])->name('login.perform');
+    });
+
+    Route::prefix('contacts')->group(function () {
+        Route::get('/', [CompanyContactController::class, 'index'])->name('contacts');
+        Route::get('/update', [CompanyContactController::class, 'update'])->name('contacts.update');
+    });
+});
+
+Route::prefix('dashboard')->middleware('auth:admin,company_user')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+});
+
+
+

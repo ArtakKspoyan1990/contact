@@ -4,18 +4,10 @@ namespace App\Http\Controllers\Dashboard\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-        /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-     public function __construct()
-     {
-         $this->middleware('auth:admin');
-     }
 
     /**
      * Show the application dashboard.
@@ -27,4 +19,18 @@ class HomeController extends Controller
         return view('pages.dashboard.index');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        if($request->type == 'company') {
+            return redirect()->route('company.login');
+        }
+        return redirect()->route('admin.login');
+    }
 }
