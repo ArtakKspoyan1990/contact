@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use JeroenDesloovere\VCard\VCard;
 
 
 class ContactController extends Controller
@@ -76,5 +78,29 @@ class ContactController extends Controller
         } catch (\Exception $e) {
             abort(404);
         }
+    }
+
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function saveContact(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:255',
+        ]);
+
+        $vcard = new VCard();
+        $vcard->addName('', $request->name);
+        $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
+
+        $vcardData = $vcard->getOutput();
+        $filename = $request->name . '.vcf';
+        return response($vcardData, 200, [
+            'Content-Type' => 'text/vcard',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 }

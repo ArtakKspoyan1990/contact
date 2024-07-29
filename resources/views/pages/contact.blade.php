@@ -947,10 +947,14 @@
                 </li>
             </ul>
             <div id="save-btn-container" class="save-btn-container">
-                <button id="save-contact-btn" data-type="primary" data-size="large"  data-app-clip="false" data-variant="primary" class="save-btn">
-                    <span>Save Contact</span>
-                    <div class="progress"></div>
-                </button>
+                <form id="contactForm">
+                    <input type="hidden" name="name" value="Any Card">
+                    <input type="hidden" name="phone" value="+37433132423">
+                    <button id="save-contact-btn" data-type="primary" data-size="large"  data-app-clip="false" data-variant="primary" class="save-btn" type="submit">
+                        <span>Save Contact</span>
+                        <div class="progress"></div>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -966,23 +970,32 @@
                 $(this).next('.collapse-content').slideToggle();
             });
             
-            $('#save-contact-btn').on('click', function () {
-                let contact = {
-                    name: 'John Doe',
-                    phone: '+1234567890',
-                    email: 'john.doe@example.com'
-                };
 
-                if (navigator.contacts) {
-                    navigator.contacts.save(contact, function() {
-                        alert('Contact saved successfully');
-                    }, function(error) {
-                        alert('Error saving contact: ' + error);
-                    });
-                } else {
-                    alert('Contacts API not supported');
-                }
-            })
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "{{ route('save.contact') }}",
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(response) {
+                        var link = document.createElement('a');
+                        link.href = window.URL.createObjectURL(response);
+                        link.download = 'contact.vcf';
+                        link.click();
+                    },
+                    errors: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+
         });
     </script>
 @endpush
