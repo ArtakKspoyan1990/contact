@@ -2,9 +2,9 @@
 
 @section('content')
     @include('layouts.dashboard.navbars.auth.topnav', ['title' => 'Company Create'])
-    {{--<div id="alert">--}}
-        {{--@include('components.alert')--}}
-    {{--</div>--}}
+    <div id="alert">
+        @include('components.alert')
+    </div>
     <div class="row mt-4 mx-4">
         <div class="col-12">
             <div class="card mb-4">

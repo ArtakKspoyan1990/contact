@@ -15,7 +15,7 @@ class User extends Authenticatable
     /**
      * @var string
      */
-    protected $guard = 'admin';
+    protected $guard = 'user';
 
     /**
      * @var string

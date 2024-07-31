@@ -93,7 +93,7 @@ class CompanyController extends Controller
         }
 
         QRCode::text($body)->setSize(20)->setMargin(3)->setOutfile($qr_path.'/qr.png')->png();
-        return redirect()->route('admin.companies')->with('added', __('Company created successfully.'));
+        return redirect()->route('admin.companies')->with('success', __('Company created successfully.'));
     }
 
 

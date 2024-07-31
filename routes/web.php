@@ -40,8 +40,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-
-
 Route::prefix('company')->name('company.')->group(function () {
     Route::middleware('guest:company_user')->group(function () {
         Route::get('/login', [CompanyLoginController::class, 'show'])->name('login');
@@ -50,7 +48,7 @@ Route::prefix('company')->name('company.')->group(function () {
 
     Route::prefix('contacts')->group(function () {
         Route::get('/', [CompanyContactController::class, 'index'])->name('contacts');
-        Route::get('/update', [CompanyContactController::class, 'update'])->name('contacts.update');
+        Route::post('/update', [CompanyContactController::class, 'update'])->name('contacts.update');
     });
 });
 
