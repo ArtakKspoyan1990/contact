@@ -950,6 +950,7 @@
                 <form id="contactForm">
                     <input type="hidden" name="name" value="Any Card">
                     <input type="hidden" name="phone" value="+37433132423">
+                    <input type="hidden" name="email" value="anycard.yerevan@gmail.com">
                     <button id="save-contact-btn" data-type="primary" data-size="large"  data-app-clip="false" data-variant="primary" class="save-btn" type="submit">
                         <span>Save Contact</span>
                         <div class="progress"></div>
