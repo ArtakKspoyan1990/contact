@@ -213,19 +213,6 @@
                                     </a>
                                 </div>
                             @endif
-
-                            @if($company->branches_count > 0)
-                                <div style="width:70px;height:90px;">
-                                    <a class="quad_link" href="#">
-                                        <div class="quad">
-                                            <div class="quad_block">
-                                                <img src="{{ asset('img/contact/icon/branches.jpg') }}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="quad_text">Branches</div>
-                                    </a>
-                                </div>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -452,7 +439,6 @@
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('scripts')

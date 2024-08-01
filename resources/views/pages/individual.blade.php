@@ -2,21 +2,11 @@
 @section('content')
     <div class="card-page">
         <div id="blinq-card" class="blinq-card">
-            <header class="card-header" data-card-layout="2C" data-image-type="cover" data-has-floating-images="true" data-floating-left="profile">
-                <div class="banner-image-container">
-                    <img class="banner-image" alt="Banner"
-                         src="{{ $data['bg_image_url'] }}" data-image-type="cover" data-editor-version="none">
-                </div>
-                <div class="left-picture" data-image-type="profile">
-                    <img class="left-picture-img" alt="profile" src="{{ $data['logo_url'] }}">
-                </div>
-
-            </header>
-
-            <p class="name-company">
-                {{ $data['full_name'] }}
-            </p>
-
+            <div class="contact-card">
+                <img src="{{  $data['image_url']  }}" alt="">
+                <h2>{{ $data['full_name'] }}</h2>
+                <p>{{ $data['position'] }}</p>
+            </div>
             <div id="main-div">
                 <div id="win1" class="win1">
                     <div id="cont">
@@ -83,7 +73,6 @@
                                     </a>
                                 </div>
                             @endif
-
 
                             @if($data['facebook'])
                                 <div style="width:70px;height:90px;">
@@ -177,18 +166,6 @@
                                 </div>
                             @endif
 
-                            @if($company->employees_count > 0)
-                                <div style="width:70px;height:90px;">
-                                    <a class="quad_link" href="{{ route('employees') }}">
-                                        <div class="quad">
-                                            <div class="quad_block">
-                                                <img src="{{ asset('img/contact/icon/employees.jpg') }}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="quad_text">Employees</div>
-                                    </a>
-                                </div>
-                            @endif
 
                             <div style="width:70px;height:90px;">
                                 <a class="quad_link" href="mailto:{{$data['email']}}">
@@ -210,19 +187,6 @@
                                             </div>
                                         </div>
                                         <div class="quad_text">Disconts</div>
-                                    </a>
-                                </div>
-                            @endif
-
-                            @if($company->branches_count > 0)
-                                <div style="width:70px;height:90px;">
-                                    <a class="quad_link" href="#">
-                                        <div class="quad">
-                                            <div class="quad_block">
-                                                <img src="{{ asset('img/contact/icon/branches.jpg') }}" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="quad_text">Branches</div>
                                     </a>
                                 </div>
                             @endif
@@ -421,24 +385,6 @@
                     </div>
                 </div>
             </div>
-            <ul class="menu-body">
-                <li class="menu-product_body">
-                    <div class="menu-product text-center" style="background: url({{ asset('img/contact/documentation.jpg') }});background-size: cover; background-position: center ">
-                    </div>
-                    <p class="text-center title">Documentation</p>
-                </li>
-                <li class="menu-product_body">
-                    <div class="menu-product text-center" style="background: url({{ asset('img/contact/video.jpg') }}); background-size: cover; background-position: center ">
-                    </div>
-                    <p class="text-center title">Video archive</p>
-                </li>
-
-                <li class="menu-product_body">
-                    <div class="menu-product text-center" style="background: url({{ asset('img/contact/photo.jpg') }}); background-size: cover; background-position: center ">
-                    </div>
-                    <p class="text-center title">Photo archive</p>
-                </li>
-            </ul>
             <div id="save-btn-container" class="save-btn-container">
                 <form id="contactForm">
                     <input type="hidden" name="name" value="{{ $data['full_name'] }}">

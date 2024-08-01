@@ -24,6 +24,8 @@ Route::get('/employees', [ContactController::class, 'employees'])->name('employe
 Route::get('/branches', [ContactController::class, 'branches'])->name('branches');
 Route::get('/employer', [ContactController::class, 'employer'])->name('employer');
 Route::get('/big-company/{id}', [ContactController::class, 'bigCompany']);
+Route::get('/company/{id}', [ContactController::class, 'company']);
+Route::get('/individual/{id}', [ContactController::class, 'individual']);
 Route::post('/save-contact', [ContactController::class, 'saveContact'])->name('save.contact');
 
 

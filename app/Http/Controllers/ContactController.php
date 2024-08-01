@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CompanyContact;
+use App\Models\CompanyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use JeroenDesloovere\VCard\VCard;
@@ -51,33 +53,91 @@ class ContactController extends Controller
      */
     public function bigCompany($id)
     {
-        try {
-            $curl = curl_init();
+        $company = CompanyUser::query()
+            ->select('id','security_key','status', 'role')
+            ->where('security_key', '=', $id)
+            ->where('status', '=', 1)
+            ->where('role', '=', 1)
+            ->withCount(['employees' => function ($q){
+                $q->where('status', 1);
+            }, 'branches' => function ($q){
+                $q->where('status', 1);
+            }])->first();
 
-            $url = env('BACK_URL') . '/api/big-company/' . $id;
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $url,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'GET',
-            ));
-
-            $data = json_decode(curl_exec($curl) , true);
-            curl_close($curl);
-
-            if( $data == 'error') {
-                abort(404);
-            }
-            return view('pages.big_company', compact('data'));
-
-
-        } catch (\Exception $e) {
+        if(!$company) {
             abort(404);
         }
+
+        $contact = CompanyContact::query()->where('company_user_id', '=', $company->id)->first();
+
+        if(!$contact) {
+            abort(404);
+        }
+
+        $data = $contact->toArray();
+        $data['logo_url'] = $contact->logo();
+        $data['bg_image_url'] = $contact->bg_image();
+        $data['image_url'] = $contact->image();
+        return view('pages.big_company', compact('data', 'company'));
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @throws \Exception
+     */
+    public function company($id)
+    {
+        $company = CompanyUser::query()
+            ->select('id','security_key','status', 'role')
+            ->where('security_key', '=', $id)
+            ->where('status', '=', 1)
+            ->where('role', '=', 2)
+            ->withCount(['employees' => function ($q){
+                $q->where('status', 1);
+            }])->first();
+
+        if(!$company) {
+            abort(404);
+        }
+
+        $contact = CompanyContact::query()->where('company_user_id', '=', $company->id)->first();
+
+        if(!$contact) {
+            abort(404);
+        }
+
+        $data = $contact->toArray();
+        $data['logo_url'] = $contact->logo();
+        $data['bg_image_url'] = $contact->bg_image();
+        $data['image_url'] = $contact->image();
+        return view('pages.company', compact('data', 'company'));
+    }
+
+
+    public function individual($id)
+    {
+        $individual = CompanyUser::query()
+            ->select('id','security_key','status', 'role')
+            ->where('security_key', '=', $id)
+            ->where('status', '=', 1)
+            ->where('role', '=', 3)
+            ->first();
+
+        if(!$individual) {
+            abort(404);
+        }
+        $contact = CompanyContact::query()->where('company_user_id', '=', $individual->id)->first();
+
+        if(!$contact) {
+            abort(404);
+        }
+
+        $data = $contact->toArray();
+        $data['logo_url'] = $contact->logo();
+        $data['bg_image_url'] = $contact->bg_image();
+        $data['image_url'] = $contact->image();
+        return view('pages.individual', compact('data', 'individual'));
     }
 
 
@@ -90,10 +150,12 @@ class ContactController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
         ]);
 
         $vcard = new VCard();
         $vcard->addName('', $request->name);
+        $vcard->addEmail($request->email);
         $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
 
         $vcardData = $vcard->getOutput();

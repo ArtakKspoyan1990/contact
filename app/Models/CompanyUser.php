@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
+use Laravel\Sanctum\HasApiTokens;
 
 class CompanyUser extends Authenticatable
 {
 
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
 
     /**
@@ -68,5 +70,29 @@ class CompanyUser extends Authenticatable
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function branches()
+    {
+        return $this->hasMany(CompanyUser::class, 'parent_id')->where('role', 2);
+    }
+
+
+    public function employees()
+    {
+        return $this->hasMany(CompanyUser::class, 'parent_id')->where('role', 3);
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(CompanyUser::class, 'parent_id');
     }
 }
