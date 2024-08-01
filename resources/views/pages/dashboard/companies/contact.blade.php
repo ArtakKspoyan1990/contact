@@ -177,6 +177,14 @@
                                 @else
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label class="control-label" for="position">{{ __('Position') }} <sup class="text-danger">*</sup></label>
+                                            <input type="text" class="form-control" name="position" id="full-name" placeholder="Director"
+                                                   value="{{ $contact ? $contact->position : null }}">
+                                            <span class="text-danger text-xs pt-1">{{ $errors->first('position')}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label class="control-label" for="image">{{ __('Image') }} (205x55) <sup class="text-danger">*</sup></label>
                                             <input type="file" class="form-control" name="image" id="image"  onChange="readerImageDisplay(this.files, 'imageBox-image', 100)">
                                             <span class="text-danger text-xs pt-1">{{ $errors->first('image')}}</span>
