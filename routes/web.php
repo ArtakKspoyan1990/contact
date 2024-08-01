@@ -42,8 +42,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-Route::prefix('company')->name('company.')->group(function () {
-    Route::prefix('user')->middleware('guest:company_user')->group(function () {
+Route::prefix('user')->name('company.')->group(function () {
+    Route::middleware('guest:company_user')->group(function () {
         Route::get('/login', [CompanyLoginController::class, 'show'])->name('login');
         Route::post('/login/perform', [CompanyLoginController::class, 'login'])->name('login.perform');
     });
