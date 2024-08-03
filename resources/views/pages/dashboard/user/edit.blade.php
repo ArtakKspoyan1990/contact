@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.dashboard.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
     @include('layouts.dashboard.navbars.auth.topnav', ['title' => 'Contacts'])

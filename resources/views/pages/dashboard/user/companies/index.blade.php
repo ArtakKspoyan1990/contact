@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.dashboard.app', ['class' => 'g-sidenav-show bg-gray-100'])
 @section('content')
     @include('layouts.dashboard.navbars.auth.topnav', ['title' => 'Companies'])
     <div class="row mt-4 mx-4">
@@ -6,7 +6,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between">
                     <h6>Companies</h6>
-                    <a href="{{ route('admin.companies.add')}}" class="btn btn-primary btn-sm">Create</a>
+                    <a href="{{ route('company.companies.add')}}" class="btn btn-primary btn-sm">Create</a>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Admin;
+namespace App\Http\Controllers\Dashboard\CompanyUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\CompanyUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelQRCode\Facades\QRCode;
 
-class CompanyController extends Controller
+class CompaniesController extends Controller
 {
         /**
      * Create a new controller instance.
@@ -19,7 +20,7 @@ class CompanyController extends Controller
      */
      public function __construct()
      {
-         $this->middleware('auth:admin');
+         $this->middleware('auth:company_user');
      }
 
 
@@ -28,8 +29,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $items = CompanyUser::query()->orderBy('created_at', 'desc')->paginate(5);
-        return view('pages.dashboard.admin.companies.index', compact('items'));
+        $userId = Auth::guard('company_user')->id();
+        $items = CompanyUser::query()->where('parent_id', '=', $userId)->orderBy('created_at', 'desc')->paginate(5);
+        return view('pages.dashboard.user.companies.index', compact('items'));
     }
 
 
@@ -38,7 +40,7 @@ class CompanyController extends Controller
      */
     public function add()
     {
-        return view('pages.dashboard.admin.companies.add');
+        return view('pages.dashboard.user.companies.add');
     }
 
 

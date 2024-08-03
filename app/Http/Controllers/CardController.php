@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 use JeroenDesloovere\VCard\VCard;
 
 
-class ContactController extends Controller
+class CardController extends Controller
 {
 
     /**

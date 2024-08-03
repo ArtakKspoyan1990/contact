@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard\Company;
+namespace App\Http\Controllers\Dashboard\CompanyUser;
 
 use App\Http\Controllers\Controller;
 use App\Models\CompanyContact;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelQRCode\Facades\QRCode;
 
-class CompanyContactController extends Controller
+class ContactController extends Controller
 {
         /**
      * Create a new controller instance.
@@ -32,7 +32,7 @@ class CompanyContactController extends Controller
     {
         $user =  Auth::guard('company_user')->user();
         $contact =  CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
-        return view('pages.dashboard.companies.contact', compact('user', 'contact'));
+        return view('pages.dashboard.user.edit', compact('user', 'contact'));
     }
 
 

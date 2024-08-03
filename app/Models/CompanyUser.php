@@ -72,6 +72,29 @@ class CompanyUser extends Authenticatable
         return false;
     }
 
+    /**
+     * @return bool
+     */
+    public function isCompany()
+    {
+        if($this->role == 2) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * @return bool
+     */
+    public function isIndividual()
+    {
+        if($this->role == 2) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

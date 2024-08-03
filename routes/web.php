@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\Dashboard\Admin\CompanyController;
 use App\Http\Controllers\Dashboard\Admin\HomeController;
 use App\Http\Controllers\Dashboard\Auth\CompanyLoginController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
+use App\Http\Controllers\Dashboard\CompanyUser\CompaniesController;
+use App\Http\Controllers\Dashboard\CompanyUser\ContactController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\Company\CompanyContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,14 +20,14 @@ use App\Http\Controllers\Dashboard\Company\CompanyContactController;
 |
 */
 
-Route::get('/', [ContactController::class, 'index'])->name('contact');
-Route::get('/employees', [ContactController::class, 'employees'])->name('employees');
-Route::get('/branches', [ContactController::class, 'branches'])->name('branches');
-Route::get('/employer', [ContactController::class, 'employer'])->name('employer');
-Route::get('/big-company/{id}', [ContactController::class, 'bigCompany']);
-Route::get('/company/{id}', [ContactController::class, 'company']);
-Route::get('/individual/{id}', [ContactController::class, 'individual']);
-Route::post('/save-contact', [ContactController::class, 'saveContact'])->name('save.contact');
+Route::get('/', [CardController::class, 'index'])->name('contact');
+Route::get('/employees', [CardController::class, 'employees'])->name('employees');
+Route::get('/branches', [CardController::class, 'branches'])->name('branches');
+Route::get('/employer', [CardController::class, 'employer'])->name('employer');
+Route::get('/big-company/{id}', [CardController::class, 'bigCompany']);
+Route::get('/company/{id}', [CardController::class, 'company']);
+Route::get('/individual/{id}', [CardController::class, 'individual']);
+Route::post('/save-contact', [CardController::class, 'saveContact'])->name('save.contact');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -49,8 +50,15 @@ Route::prefix('user')->name('company.')->group(function () {
     });
 
     Route::prefix('contacts')->group(function () {
-        Route::get('/', [CompanyContactController::class, 'index'])->name('contacts');
-        Route::post('/update', [CompanyContactController::class, 'update'])->name('contacts.update');
+        Route::get('/', [ContactController::class, 'index'])->name('contacts');
+        Route::post('/update', [ContactController::class, 'update'])->name('contacts.update');
+    });
+
+    Route::prefix('companies')->group(function () {
+        Route::get('/', [CompaniesController::class, 'index'])->name('companies');
+        Route::get('/add', [CompaniesController::class, 'add'])->name('companies.add');
+        Route::post('/store', [CompaniesController::class, 'store'])->name('companies.store');
+//        Route::post('/update', [ContactController::class, 'update'])->name('contacts.update');
     });
 });
 
