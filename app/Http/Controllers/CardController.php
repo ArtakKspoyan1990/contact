@@ -165,4 +165,64 @@ class CardController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
+
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function companyEmployees($id)
+    {
+        $company = CompanyUser::query()
+            ->select('id','security_key','status', 'role')
+            ->where('security_key', '=', $id)->first();
+
+        if(!$company) {
+            abort(404);
+        }
+
+        $employees = CompanyUser::query()
+            ->select('id','security_key','status', 'role', 'parent_id')
+            ->with('contact')
+            ->whereHas('contact')
+            ->where('status', '=', 1)
+            ->where('role', '=', 3)
+            ->where('parent_id', '=', $company->id)
+             ->get();
+
+        if(count($employees) == 0) {
+            abort(404);
+        }
+
+        return view('pages.company_employees', compact('employees'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function companyBranches($id)
+    {
+        $company = CompanyUser::query()
+            ->select('id','security_key','status', 'role')
+            ->where('security_key', '=', $id)->first();
+
+        if(!$company) {
+            abort(404);
+        }
+
+        $branches = CompanyUser::query()
+            ->select('id','security_key','status', 'role', 'parent_id')
+            ->with('contact')
+            ->whereHas('contact')
+            ->where('status', '=', 1)
+            ->where('role', '=', 2)
+            ->where('parent_id', '=', $company->id)
+            ->get();
+
+        if(count($branches) == 0) {
+            abort(404);
+        }
+
+        return view('pages.company_branches', compact('branches'));
+    }
+
 }

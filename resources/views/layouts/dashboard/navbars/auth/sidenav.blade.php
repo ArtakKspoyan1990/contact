@@ -47,8 +47,8 @@
 
                     @if(Auth::guard('company_user')->user()->isBigCompany() or Auth::guard('company_user')->user()->isCompany())
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'company.contacts' ? 'active' : '' }}"
-                               href="{{ route('company.contacts') }}">
+                            <a class="nav-link {{ Route::currentRouteName() == 'company.employees' ? 'active' : '' }}"
+                               href="{{ route('company.employees') }}">
                                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                                     <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
                                 </div>

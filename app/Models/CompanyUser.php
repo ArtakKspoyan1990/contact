@@ -118,4 +118,12 @@ class CompanyUser extends Authenticatable
     {
         return $this->belongsTo(CompanyUser::class, 'parent_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function contact()
+    {
+        return $this->hasOne(CompanyContact::class);
+    }
 }

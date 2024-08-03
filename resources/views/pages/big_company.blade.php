@@ -179,7 +179,7 @@
 
                             @if($company->employees_count > 0)
                                 <div style="width:70px;height:90px;">
-                                    <a class="quad_link" href="{{ route('employees') }}">
+                                    <a class="quad_link" href="{{ route('employees') . '/' .$company->security_key }}">
                                         <div class="quad">
                                             <div class="quad_block">
                                                 <img src="{{ asset('img/contact/icon/employees.jpg') }}" alt="">
@@ -216,7 +216,7 @@
 
                             @if($company->branches_count > 0)
                                 <div style="width:70px;height:90px;">
-                                    <a class="quad_link" href="#">
+                                    <a class="quad_link" href="{{ route('branches')  . '/' .$company->security_key}}">
                                         <div class="quad">
                                             <div class="quad_block">
                                                 <img src="{{ asset('img/contact/icon/branches.jpg') }}" alt="">

@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\Auth\CompanyLoginController;
 use App\Http\Controllers\Dashboard\Auth\LoginController;
 use App\Http\Controllers\Dashboard\CompanyUser\CompaniesController;
 use App\Http\Controllers\Dashboard\CompanyUser\ContactController;
+use App\Http\Controllers\Dashboard\CompanyUser\EmployeesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,10 +25,14 @@ Route::get('/', [CardController::class, 'index'])->name('contact');
 Route::get('/employees', [CardController::class, 'employees'])->name('employees');
 Route::get('/branches', [CardController::class, 'branches'])->name('branches');
 Route::get('/employer', [CardController::class, 'employer'])->name('employer');
+
+
 Route::get('/big-company/{id}', [CardController::class, 'bigCompany']);
-Route::get('/company/{id}', [CardController::class, 'company']);
-Route::get('/individual/{id}', [CardController::class, 'individual']);
+Route::get('/company/{id}', [CardController::class, 'company'])->name('company');
+Route::get('/individual/{id}', [CardController::class, 'individual'])->name('individual');
 Route::post('/save-contact', [CardController::class, 'saveContact'])->name('save.contact');
+Route::get('/employees/{id}', [CardController::class, 'companyEmployees'])->name('employees.company');
+Route::get('/branches/{id}', [CardController::class, 'companyBranches'])->name('branches.company');
 
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -58,7 +63,22 @@ Route::prefix('user')->name('company.')->group(function () {
         Route::get('/', [CompaniesController::class, 'index'])->name('companies');
         Route::get('/add', [CompaniesController::class, 'add'])->name('companies.add');
         Route::post('/store', [CompaniesController::class, 'store'])->name('companies.store');
-//        Route::post('/update', [ContactController::class, 'update'])->name('contacts.update');
+        Route::get('/edit/{id}', [CompaniesController::class, 'edit'])->name('companies.edit');
+        Route::post('/update', [CompaniesController::class, 'update'])->name('companies.contact.update');
+        Route::post('/change/password', [CompaniesController::class, 'changePassword'])->name('companies.change.password');
+        Route::get('/toggle/{id}/{status}', [CompaniesController::class, 'toggle'])->name('companies.toggle');
+        Route::post('/destroy', [CompaniesController::class, 'destroy'])->name('companies.destroy');
+    });
+
+    Route::prefix('employees')->group(function () {
+        Route::get('/', [EmployeesController::class, 'index'])->name('employees');
+        Route::get('/add', [EmployeesController::class, 'add'])->name('employees.add');
+        Route::post('/store', [EmployeesController::class, 'store'])->name('employees.store');
+        Route::get('/edit/{id}', [EmployeesController::class, 'edit'])->name('employees.edit');
+        Route::post('/update', [EmployeesController::class, 'update'])->name('employees.contact.update');
+        Route::post('/change/password', [EmployeesController::class, 'changePassword'])->name('employees.change.password');
+        Route::get('/toggle/{id}/{status}', [EmployeesController::class, 'toggle'])->name('employees.toggle');
+        Route::post('/destroy', [EmployeesController::class, 'destroy'])->name('employees.destroy');
     });
 });
 

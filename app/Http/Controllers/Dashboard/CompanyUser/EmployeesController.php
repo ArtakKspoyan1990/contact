@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use LaravelQRCode\Facades\QRCode;
 
-class CompaniesController extends Controller
+class EmployeesController extends Controller
 {
         /**
      * Create a new controller instance.
@@ -31,12 +31,13 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $authId = Auth::guard('company_user')->id();
+        $userId = Auth::guard('company_user')->id();
         $items = CompanyUser::query()
-            ->where('parent_id', '=', $authId)
-            ->where('role', '=', 2)
-            ->orderBy('created_at', 'desc')->paginate(5);
-        return view('pages.dashboard.user.companies.index', compact('items'));
+            ->where('parent_id', '=', $userId)
+            ->where('role', '=', 3)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+        return view('pages.dashboard.user.employees.index', compact('items'));
     }
 
 
@@ -45,7 +46,7 @@ class CompaniesController extends Controller
      */
     public function add()
     {
-        return view('pages.dashboard.user.companies.add');
+        return view('pages.dashboard.user.employees.add');
     }
 
 
@@ -76,15 +77,14 @@ class CompaniesController extends Controller
         $item = new CompanyUser();
         $item->security_key = Str::random(32);
         $item->status = $request->status;
-        $item->role = 2;
+        $item->role = 3;
         $item->name = $request->name;
         $item->parent_id = Auth::guard('company_user')->id();
         $item->password = Hash::make($request->password);
         $item->save();
         $item_id = $item->id;
 
-        $body = env('APP_URL'). '/company/' .$item->security_key;
-
+        $body = env('APP_URL'). '/individual/' .$item->security_key;
         $qr_path = base_path() . '/public/uploads/companies/qrs/' .  $item_id;
 
         if ( !is_dir($qr_path) ) {
@@ -92,8 +92,9 @@ class CompaniesController extends Controller
         }
 
         QRCode::text($body)->setSize(20)->setMargin(3)->setOutfile($qr_path.'/qr.png')->png();
-        return redirect()->route('company.companies')->with('success', __('Company created successfully.'));
+        return redirect()->route('company.employees')->with('success', __('Employee created successfully.'));
     }
+
 
 
     /**
@@ -103,12 +104,15 @@ class CompaniesController extends Controller
     public function edit($id)
     {
         $authId = Auth::guard('company_user')->id();
-        $user =  CompanyUser::query()->where('id', '=', $id)->where('parent_id', '=', $authId)->first();
+        $user =  CompanyUser::query()->where('id', '=', $id)
+            ->where('parent_id', '=', $authId)
+            ->where('role', '=', 3)
+            ->first();
         if( !$user) {
             abort(404);
         }
         $contact =  CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
-        return view('pages.dashboard.user.companies.edit', compact('user', 'contact'));
+        return view('pages.dashboard.user.employees.edit', compact('user', 'contact'));
     }
 
 
@@ -139,12 +143,10 @@ class CompaniesController extends Controller
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'id' => 'required',
+            'position' => 'required|string|max:255',
         ];
 
 
-//        if($user->role == 3) {
-//            $rules['position'] = 'required|string|max:255';
-//        }
 
         $trans = [
             'id.required' => __('This field is required.'),
@@ -171,7 +173,7 @@ class CompaniesController extends Controller
         $user = CompanyUser::query()
             ->where('id', '=', $request->id)
             ->where('parent_id', '=', $authId)
-            ->where('role', '=', 2)->first();
+            ->where('role', '=', 3)->first();
 
         if(!$user) {
             abort(404);
@@ -257,7 +259,7 @@ class CompaniesController extends Controller
             }
         }
 
-        return redirect()->back()->with("success", __("Company Contact changed successfully."));
+        return redirect()->back()->with("success", __("Employee Contact changed successfully."));
     }
 
 
@@ -265,39 +267,39 @@ class CompaniesController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-     public function changePassword(Request $request)
-     {
-         $authId = Auth::guard('company_user')->id();
-         $rules = [
-             'id' => 'required',
-             'password' => 'required|min:8',
+    public function changePassword(Request $request)
+    {
+        $authId = Auth::guard('company_user')->id();
+        $rules = [
+            'id' => 'required',
+            'password' => 'required|min:8',
 
-         ];
-         $trans = [
-             'id.required' => __('This field is required.'),
-             'password.required' => __('This field is required.'),
-             'password.min' => __('Min size max be 8.'),
-         ];
+        ];
+        $trans = [
+            'id.required' => __('This field is required.'),
+            'password.required' => __('This field is required.'),
+            'password.min' => __('Min size max be 8.'),
+        ];
 
-         $v = Validator::make($request->all(), $rules, $trans);
-         if ($v->fails()) {
-             return redirect()->back()->withInput()->withErrors($v->errors());
-         }
-
-
-         $user = CompanyUser::query()->where('parent_id', '=', $authId)
-             ->where('id', '=', $request->id)
-             ->where('role', '=', 2)->first();
-
-         if(!$user) {
-             abort(404);
-         }
+        $v = Validator::make($request->all(), $rules, $trans);
+        if ($v->fails()) {
+            return redirect()->back()->withInput()->withErrors($v->errors());
+        }
 
 
-         $user->password = Hash::make($request->password);
-         $user->save();
-         return redirect()->back()->with("success", __("Password changed successfully."));
-     }
+        $user = CompanyUser::query()->where('parent_id', '=', $authId)
+            ->where('id', '=', $request->id)
+            ->where('role', '=', 3)->first();
+
+        if(!$user) {
+            abort(404);
+        }
+
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->back()->with("success", __("Password changed successfully."));
+    }
 
 
 
@@ -310,7 +312,7 @@ class CompaniesController extends Controller
         $authId = Auth::guard('company_user')->id();
         $user = CompanyUser::query()->where('parent_id', '=', $authId)
             ->where('id', '=', $id)
-            ->where('role', '=', 2)->first();
+            ->where('role', '=', 3)->first();
 
         if ( ! $user ) {
             abort(404);
@@ -330,7 +332,7 @@ class CompaniesController extends Controller
         $authId = Auth::guard('company_user')->id();
         $user = CompanyUser::query()->where('parent_id', '=', $authId)
             ->where('id', '=', $request->id)
-            ->where('role', '=', 2)->first();
+            ->where('role', '=', 3)->first();
 
         if ( ! $user ) {
             abort(404);
@@ -365,7 +367,6 @@ class CompaniesController extends Controller
         $user->delete();
         return redirect()->back()->with('success', __('Company deleted successfully.'));
     }
-
 
 
 }

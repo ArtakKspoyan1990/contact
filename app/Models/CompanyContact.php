@@ -26,7 +26,7 @@ class CompanyContact extends Model
         if($image_name !== null && is_file($images_path .'/'. $image_name)) {
             return URL::to('/').'/uploads/company-contact/'. $this->id .'/'. $image_name;
         } else {
-            return URL::to('/').'/assets/img/no/370-300.jpg';
+            return URL::to('/').'/img/no/370-300.jpg';
         }
     }
 
@@ -40,7 +40,7 @@ class CompanyContact extends Model
             return URL::to('/') . '/uploads/company-contact/' . $this->id . '/' . $bg_image_name;
         }
         else {
-            return URL::to('/') . '/assets/img/no/1920-1080.jpg';
+            return URL::to('/') . '/img/no/1920-1080.jpg';
         }
     }
 
@@ -54,7 +54,9 @@ class CompanyContact extends Model
             return URL::to('/') . '/uploads/company-contact/' . $this->id . '/' . $image_name;
         }
         else {
-            return URL::to('/') . '/assets/img/no/370-300.jpg';
+            return URL::to('/') . '/img/no/370-300.jpg';
         }
     }
+
+
 }

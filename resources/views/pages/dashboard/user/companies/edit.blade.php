@@ -1,7 +1,7 @@
 @extends('layouts.dashboard.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.dashboard.navbars.auth.topnav', ['title' => 'Contacts'])
+    @include('layouts.dashboard.navbars.auth.topnav', ['title' => 'Company Contacts'])
     <div id="alert">
         @include('components.alert')
     </div>
@@ -9,7 +9,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h6>Contacts</h6>
+                    <h6>Company Contacts</h6>
                 </div>
                 <div class="px-0 pt-0 pb-2">
                     @if($user)
@@ -17,7 +17,7 @@
                             <img src="{{ $user->qr() }}" alt="" style="width: 120px;">
                         </div>
                     @endif
-                    <form  method="POST" action="{{route('company.contacts.update')}}" enctype="multipart/form-data">
+                    <form  method="POST" action="{{route('company.companies.contact.update')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             <div class="row">
@@ -29,6 +29,8 @@
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('full_name')}}</span>
                                     </div>
                                 </div>
+
+                                <input type="hidden" value="{{ $user->id }}" name="id">
 
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -195,9 +197,44 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 @endif
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 mx-4">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h6>Change password</h6>
+                </div>
+                <div class="px-0 pt-0 pb-2">
+                    <form  method="POST" action="{{route('company.companies.change.password')}}">
+                        @csrf
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">{{ __('Name') }}</label>
+                                        <input type="text" class="form-control" name="name" id="name"  value="{{ $user->name }}" disabled="disabled">
+                                    </div>
+                                </div>
 
+                                <input type="hidden" value="{{ $user->id }}" name="id">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="password">{{ __('Password') }} <sup class="text-danger">*</sup></label>
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="{{__('Password')}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('password')}}</span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>

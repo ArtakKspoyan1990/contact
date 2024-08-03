@@ -12,7 +12,7 @@
                     <h6>Company Create</h6>
                 </div>
                 <div class="px-0 pt-0 pb-2">
-                    <form  method="POST" action="{{route('company.companies.store')}}">
+                    <form  method="POST" action="{{route('company.employees.store')}}">
                         @csrf
                         <div class="card-body">
                             <div class="row">
