@@ -174,6 +174,11 @@ class CardController extends Controller
         $vcard->addURL('https://www.example.com/discounts', 'Disconts');
         $vcard->addURL('https://www.google.com/maps/preview', 'Location');
 
+
+        $vcard->addLabel('X-WHATSAPP', '+12345678901');
+        $vcard->addLabel('X-VIBER', '+12345678902');
+        $vcard->addLabel('X-TELEGRAM', '+12345678903');
+
         $vcardData = $vcard->getOutput();
         $filename = $request->name . '.vcf';
         return response($vcardData, 200, [
