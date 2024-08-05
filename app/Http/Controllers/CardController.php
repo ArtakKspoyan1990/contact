@@ -155,22 +155,24 @@ class CardController extends Controller
 
         $vcard = new VCard();
 
-        $vcard->addURL('https://www.instagram.com/username', 'Website');
-        $vcard->addURL('https://www.instagram.com/username', 'WhatsApp');
-        $vcard->addURL('https://www.instagram.com/username', 'Viber');
-        $vcard->addURL('https://www.instagram.com/username', 'Telegram');
-        $vcard->addURL('https://www.instagram.com/username', 'Facebook');
-        $vcard->addURL('https://www.instagram.com/username', 'Messenger');
-        $vcard->addURL('https://www.instagram.com/username', 'Instagram');
-        $vcard->addURL('https://www.instagram.com/username', 'TikTok');
-        $vcard->addURL('https://www.instagram.com/username', 'Location');
-        $vcard->addURL('https://www.instagram.com/username', 'Youtube');
-        $vcard->addURL('https://www.instagram.com/username', 'Disconts');
+
 
 
         $vcard->addName('', $request->name);
         $vcard->addEmail($request->email);
         $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
+
+        $vcard->addPhoneNumber('+12345678901', 'WhatsApp');
+        $vcard->addPhoneNumber('+12345678901', 'Viber');
+        $vcard->addPhoneNumber('+12345678901', 'Telegram');
+        $vcard->addURL('https://www.example.com', 'Website');
+        $vcard->addURL('https://www.facebook.com/username', 'Facebook');
+        $vcard->addURL('https://m.me/username', 'Messenger');
+        $vcard->addURL('https://www.instagram.com/username', 'Instagram');
+        $vcard->addURL('https://www.tiktok.com/@username', 'TikTok');
+        $vcard->addURL('https://www.youtube.com/channel/UCxxxxxxxx', 'YouTube');
+        $vcard->addURL('https://www.example.com/discounts', 'Disconts');
+        $vcard->addURL('https://www.google.com/maps/preview', 'Location');
 
         $vcardData = $vcard->getOutput();
         $filename = $request->name . '.vcf';
