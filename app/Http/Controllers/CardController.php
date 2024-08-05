@@ -155,37 +155,53 @@ class CardController extends Controller
 
         $vcard = new VCard();
 
-
-
-
         $vcard->addName('', $request->name);
         $vcard->addEmail($request->email);
         $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
 
-//        $vcard->addPhoneNumber('+12345678901', 'WhatsApp');
-//        $vcard->addPhoneNumber('+12345678902', 'Viber');
-//        $vcard->addPhoneNumber('+12345678903', 'Telegram');
-//        $vcard->addURL('https://www.example.com', 'Website');
-//        $vcard->addURL('https://www.facebook.com/username', 'Facebook');
-//        $vcard->addURL('https://m.me/username', 'Messenger');
-//        $vcard->addURL('https://www.instagram.com/username', 'Instagram');
-//        $vcard->addURL('https://www.tiktok.com/@username', 'TikTok');
-//        $vcard->addURL('https://www.youtube.com/channel/UCxxxxxxxx', 'YouTube');
-//        $vcard->addURL('https://www.example.com/discounts', 'Disconts');
-//        $vcard->addURL('https://www.google.com/maps/preview', 'Location');
+        if($request->has('whats_app')){
+            $vcard->addPhoneNumber(request('whats_app'), 'WhatsApp');
+        }
 
-        $vcard->addPhoneNumber('+12345678901', 'CELL'); // WhatsApp
-        $vcard->addPhoneNumber('+12345678902', 'CELL'); // Viber
-        $vcard->addPhoneNumber('+12345678903', 'CELL'); // Telegram
-        $vcard->addAddress('Улица', 'Город', 'Область', 'Почтовый индекс', 'Страна');
-        $vcard->addURL('https://www.example.com', 'WORK'); // Вебсайт
-        $vcard->addURL('https://www.facebook.com/username', 'WORK'); // Facebook
-        $vcard->addURL('https://m.me/username', 'WORK'); // Messenger
-        $vcard->addURL('https://www.instagram.com/username', 'WORK'); // Instagram
-        $vcard->addURL('https://www.tiktok.com/@username', 'WORK'); // TikTok
-        $vcard->addURL('https://www.youtube.com/channel/UCxxxxxxxx', 'WORK'); // YouTube
-        $vcard->addURL('https://www.example.com/discounts', 'WORK'); // Скидки
-        $vcard->addAddress('Улица 123', 'Название города', 'Название области', '12345', 'Название страны', 'WORK'); // Местоположение
+        if($request->has('viber')){
+            $vcard->addPhoneNumber(request('viber'), 'Viber');
+        }
+
+        if($request->has('telegram')){
+            $vcard->addPhoneNumber(request('telegram'), 'Telegram');
+        }
+
+        if($request->has('website')){
+            $vcard->addPhoneNumber(request('website'), 'website');
+        }
+
+        if($request->has('facebook')){
+            $vcard->addURL(request('facebook'), 'Facebook');
+        }
+
+        if($request->has('messenger')){
+            $vcard->addURL(request('messenger'), 'Messenger');
+        }
+
+        if($request->has('instagram')){
+            $vcard->addURL(request('instagram'), 'Instagram');
+        }
+
+        if($request->has('tik_tok')){
+            $vcard->addURL(request('tik_tok'), 'TikTok');
+        }
+
+        if($request->has('youtube')){
+            $vcard->addURL(request('youtube'), 'YouTube');
+        }
+
+        if($request->has('disconts')){
+            $vcard->addURL(request('disconts'), 'Disconts');
+        }
+
+        if($request->has('Location')){
+            $vcard->addURL(request('location'), 'location');
+        }
 
         $vcardData = $vcard->getOutput();
         $filename = $request->name . '.vcf';

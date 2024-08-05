@@ -633,36 +633,6 @@
                                 </a>
                             </div>
 
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Youtube</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Еmployees</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-
-                            {{--<div style="width:70px;height:90px;">--}}
-                            {{--<a class="quad_link" href="#">--}}
-                            {{--<div class="quad">--}}
-                            {{--<div class="quad_block">--}}
-                            {{--</div>--}}
-                            {{--</div>--}}
-                            {{--<div class="quad_text">Discounts</div>--}}
-                            {{--</a>--}}
-                            {{--</div>--}}
-
                             <div style="width:70px;height:90px;">
                                 <a class="quad_link" href="#">
                                     <div class="quad">
