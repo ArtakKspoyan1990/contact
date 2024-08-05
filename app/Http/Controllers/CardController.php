@@ -154,6 +154,20 @@ class CardController extends Controller
         ]);
 
         $vcard = new VCard();
+
+        $vcard->addURL('https://www.instagram.com/username', 'Website');
+        $vcard->addURL('https://www.instagram.com/username', 'WhatsApp');
+        $vcard->addURL('https://www.instagram.com/username', 'Viber');
+        $vcard->addURL('https://www.instagram.com/username', 'Telegram');
+        $vcard->addURL('https://www.instagram.com/username', 'Facebook');
+        $vcard->addURL('https://www.instagram.com/username', 'Messenger');
+        $vcard->addURL('https://www.instagram.com/username', 'Instagram');
+        $vcard->addURL('https://www.instagram.com/username', 'TikTok');
+        $vcard->addURL('https://www.instagram.com/username', 'Location');
+        $vcard->addURL('https://www.instagram.com/username', 'Youtube');
+        $vcard->addURL('https://www.instagram.com/username', 'Disconts');
+
+
         $vcard->addName('', $request->name);
         $vcard->addEmail($request->email);
         $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
