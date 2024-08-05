@@ -175,7 +175,7 @@ class CardController extends Controller
         $vcardData = $vcard->getOutput();
         $filename = $request->name . '.vcf';
         return response($vcardData, 200, [
-            'Content-Type' => 'text/vcard',
+            'Content-Type' => $vcard->getContentType(),
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
