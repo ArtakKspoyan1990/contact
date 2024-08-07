@@ -62,6 +62,9 @@ class ContactController extends Controller
             'bg_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'address' => 'nullable|string|max:255',
+            'latitude' => 'nullable|string|max:255',
+            'longitude' => 'nullable|string|max:255',
         ];
 
 
@@ -74,7 +77,6 @@ class ContactController extends Controller
             'full_name.required' => __('This field is required.'),
             'phone.required' => __('This field is required.'),
             'email.required' => __('This field is required.'),
-            'slug.required' => __('This field is required.'),
             'image.image' => __('Please upload a valid image.'),
             'image.max' => __('max_size_error'),
             'bg_image.image' => __('Please upload a valid image.'),
@@ -89,6 +91,7 @@ class ContactController extends Controller
         if ( $v->fails() ) {
             return redirect()->back()->withInput()->withErrors($v->errors());
         }
+
 
         $companyContact = CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
         if(! $companyContact) {
@@ -111,7 +114,10 @@ class ContactController extends Controller
         $companyContact->tik_tok=  $request->tik_tok;
         $companyContact->youtube =  $request->youtube;
         $companyContact->disconts =  $request->disconts;
-        $companyContact->position=  $request->position;
+        $companyContact->position =  $request->position;
+        $companyContact->address =  $request->address;
+        $companyContact->latitude =  $request->latitude;
+        $companyContact->longitude =  $request->longitude;
         $companyContact->save();
 
 

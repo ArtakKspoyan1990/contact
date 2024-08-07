@@ -142,8 +142,11 @@ class EmployeesController extends Controller
             'bg_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'id' => 'required',
             'position' => 'required|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'latitude' => 'nullable|string|max:255',
+            'longitude' => 'nullable|string|max:255',
+            'id' => 'required',
         ];
 
 
@@ -201,7 +204,10 @@ class EmployeesController extends Controller
         $companyContact->tik_tok=  $request->tik_tok;
         $companyContact->youtube =  $request->youtube;
         $companyContact->disconts =  $request->disconts;
-        $companyContact->position=  $request->position;
+        $companyContact->position =  $request->position;
+        $companyContact->address =  $request->address;
+        $companyContact->latitude =  $request->latitude;
+        $companyContact->longitude =  $request->longitude;
         $companyContact->save();
 
 

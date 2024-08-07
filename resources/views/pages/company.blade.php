@@ -431,13 +431,12 @@
                     <input type="hidden" name="name" value="{{ $data['full_name'] }}">
                     <input type="hidden" name="phone" value="{{$data['phone']}}">
                     <input type="hidden" name="email" value="{{$data['email']}}">
-
                     @if($data['whats_app'])
-                        <input type="hidden" name="whats_app" value="{{$data['whats_app']}}">
+                        <input type="hidden" name="whats_app" value="https://wa.me/{{$data['whats_app']}}">
                     @endif
 
                     @if($data['telegram'])
-                        <input type="hidden" name="telegram" value="{{$data['telegram']}}">
+                        <input type="hidden" name="telegram" value="https://t.me/{{$data['telegram']}}">
                     @endif
 
                     @if($data['facebook'])
@@ -460,8 +459,12 @@
                         <input type="hidden" name="location" value="{{$data['location']}}">
                     @endif
 
+                    @if($data['address'])
+                        <input type="hidden" name="address" value="{{$data['address']}}">
+                    @endif
+
                     @if($data['viber'])
-                        <input type="hidden" name="viber" value="{{$data['viber']}}">
+                        <input type="hidden" name="viber" value="viber://add?number={{$data['viber']}}}">
                     @endif
 
                     @if($data['youtube'])
@@ -470,6 +473,10 @@
 
                     @if($data['disconts'])
                         <input type="hidden" name="disconts" value="{{$data['disconts']}}">
+                    @endif
+
+                    @if($data['logo_url'] and strpos($data['logo_url'], 'uploads') !== false)
+                        <input type="hidden" name="image" value="{{$data['logo_url'] }}">
                     @endif
 
                     <button id="save-contact-btn" data-type="primary" data-size="large"  data-app-clip="false" data-variant="primary" class="save-btn" type="submit">

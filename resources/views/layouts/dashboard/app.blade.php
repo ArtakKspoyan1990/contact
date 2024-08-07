@@ -16,6 +16,7 @@
     <link href="{{ asset('argon/assets/css/nucleo-svg.css') }}" rel="stylesheet" />
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('argon/assets/css/argon-dashboard.css') }}" rel="stylesheet" />
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=55643f7b-447d-4da5-9f2b-e20dee0daa4a&lang=en_US" type="text/javascript"></script>
 </head>
 
 <body class="{{ $class ?? '' }}">

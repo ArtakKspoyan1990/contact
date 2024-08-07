@@ -143,7 +143,7 @@ class CardController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function saveContact(Request $request)
     {
@@ -153,62 +153,137 @@ class CardController extends Controller
             'email' => 'required|string|email|max:255',
         ]);
 
-        $vcard = new VCard();
 
-        $vcard->addName('', $request->name);
-        $vcard->addEmail($request->email);
-        $vcard->addPhoneNumber($request->phone, 'PREF;WORK');
+        $key = 0;
 
-        if($request->has('whats_app')){
-            $vcard->addPhoneNumber(request('whats_app'), 'WhatsApp');
+        $vcard = "BEGIN:VCARD\n";
+        $vcard .= "VERSION:3.0\n";
+        $vcard .= "N;CHARSET=utf-8:;" .request('name'). ";;;\n";
+        $vcard .= "FN;CHARSET=utf-8:" .request('name'). "\n";
+
+        if($request->has('image')){
+            $base64Photo = base64_encode(file_get_contents(request('image')));
+            $vcard .= "PHOTO;ENCODING=b;TYPE=JPEG:" . $base64Photo . "\n";
         }
 
-        if($request->has('viber')){
-            $vcard->addPhoneNumber(request('viber'), 'Viber');
-        }
+        $vcard .= "TEL;PREF;WORK:" .request('phone'). "\n";
+        $vcard .= "EMAIL;INTERNET:" .request('email')."\n";
 
-        if($request->has('telegram')){
-            $vcard->addPhoneNumber(request('telegram'), 'Telegram');
+
+        if($request->has('address')){
+            $vcard .= $this->convertAddressToVCardFormat(request('address'));
         }
 
         if($request->has('website')){
-            $vcard->addPhoneNumber(request('website'), 'website');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('website')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Website\n";
+        }
+
+
+        if($request->has('whats_app')){
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('whats_app')."\n";
+            $vcard .= "url".$key.".X-ABLabel:WhatsApp\n";
+        }
+
+        if($request->has('viber')){
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('viber')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Viber\n";
+        }
+
+        if($request->has('telegram')){
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('telegram')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Telegram\n";
         }
 
         if($request->has('facebook')){
-            $vcard->addURL(request('facebook'), 'Facebook');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('facebook')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Facebook\n";
         }
 
         if($request->has('messenger')){
-            $vcard->addURL(request('messenger'), 'Messenger');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('messenger')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Messenger\n";
         }
 
         if($request->has('instagram')){
-            $vcard->addURL(request('instagram'), 'Instagram');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('instagram')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Instagram\n";
         }
 
         if($request->has('tik_tok')){
-            $vcard->addURL(request('tik_tok'), 'TikTok');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('tik_tok')."\n";
+            $vcard .= "url".$key.".X-ABLabel:TikTok\n";
         }
 
         if($request->has('youtube')){
-            $vcard->addURL(request('youtube'), 'YouTube');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('youtube')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Youtube\n";
         }
 
         if($request->has('disconts')){
-            $vcard->addURL(request('disconts'), 'Disconts');
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('disconts')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Disconts\n";
         }
 
-        if($request->has('Location')){
-            $vcard->addURL(request('location'), 'location');
+        if($request->has('location')){
+            $key = 1 + $key;
+            $vcard .= "url".$key.".URL:".request('location')."\n";
+            $vcard .= "url".$key.".X-ABLabel:Location\n";
         }
 
-        $vcardData = $vcard->getOutput();
-        $filename = $request->name . '.vcf';
-        return response($vcardData, 200, [
-            'Content-Type' => $vcard->getContentType(),
-            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
-        ]);
+
+        $vcard .= "END:VCARD";
+
+        $fileName = 'contact.vcf';
+        $vcardFilePath = storage_path($fileName);
+        file_put_contents($vcardFilePath, $vcard);
+        return response()->download($vcardFilePath, $fileName)->deleteFileAfterSend(true);
+
+    }
+
+
+    /**
+     * @param $address
+     * @return string
+     */
+    public function convertAddressToVCardFormat($address)
+    {
+        $parts = array_map('trim', explode(',', $address));
+
+        $streetAddress = '';
+        $locality = '';
+        $region = '';
+        $country = '';
+
+        $numParts = count($parts);
+
+        if ($numParts == 3) {
+            $streetAddress = $parts[2];
+            $locality = $parts[1];
+            $country = $parts[0];
+        } elseif ($numParts == 4) {
+            $streetAddress = $parts[2];
+            $locality = $parts[1];
+            $country = $parts[0];
+        } elseif ($numParts == 5) {
+            $streetAddress = $parts[2];
+            $locality = $parts[1];
+            $region = $parts[3];
+            $country = $parts[0];
+        }
+
+        $adr = "ADR;PREF:;;$streetAddress;$locality;$region;;$country;\n";
+        return $adr;
     }
 
 

@@ -61,15 +61,6 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label" for="location">{{ __('Location') }}</label>
-                                        <input type="url" class="form-control" name="location" id="location" placeholder="https://maps.app.goo.gl/322tTuyczrPATnpW9"
-                                               value="{{$contact ? $contact->location : null}}">
-                                        <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
                                         <label class="control-label" for="whats-app">{{ __('WhatsApp') }}</label>
                                         <input type="tel" class="form-control" name="whats_app" id="whats-app" placeholder="374********"
                                                value="{{$contact ? $contact->whats_app : null}}">
@@ -198,6 +189,27 @@
                                         </div>
                                     </div>
                                 @endif
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="location">{{ __('Location') }}</label>
+                                            <input type="url" class="form-control" name="location" id="location" readonly
+                                                   value="{{$contact ? $contact->location : null}}">
+                                            <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="address">{{ __('Address') }}</label>
+                                            <input type="text" class="form-control" name="address" id="address"  readonly
+                                                   value="{{$contact ? $contact->address : null}}">
+                                            <span class="text-danger text-xs pt-1">{{ $errors->first('address')}}</span>
+                                        </div>
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
+                                        <div id="map" style="width: 100%; height: 400px;"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
@@ -258,6 +270,44 @@
                 $('#' + class_box).html('<img style="width:' + w + 'px;" class="thumbnail" src="' + e.target.result + '">');
             };
             reader.readAsDataURL(files[0]);
+        }
+
+        ymaps.ready(init);
+        function init() {
+            var map = new ymaps.Map("map", {
+                center: [40.18111, 44.51361],
+                zoom: 10
+            });
+
+            map.controls.remove('searchControl');
+            map.controls.remove('zoomControl');
+            map.controls.remove('geolocationControl');
+            map.controls.remove('routeEditor');
+            map.controls.remove('trafficControl');
+            map.controls.remove('typeSelector');
+            map.controls.remove('fullscreenControl');
+
+            var searchControl = new ymaps.control.SearchControl({
+                options: {
+                    noPlacemark: true,
+                    float: 'left',
+                    size: 'large'
+                }
+            });
+            map.controls.add(searchControl);
+
+            searchControl.events.add('resultselect', function (e) {
+                var index = e.get('index');
+                searchControl.getResult(index).then(function (result) {
+                    var coords = result.geometry.getCoordinates();
+                    var address = result.getAddressLine();
+                    var locationLink = `https://yandex.com/maps/?ll=${coords[1]},${coords[0]}&z=14&text=${encodeURIComponent(address)}`;
+                    $('#address').val(address);
+                    $('#latitude').val(coords[0]);
+                    $('#longitude').val(coords[1]);
+                    $('#location').val(locationLink);
+                });
+            });
         }
     </script>
 @endpush
