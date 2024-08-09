@@ -59,14 +59,14 @@ class EmployeesController extends Controller
         $rules = [
             'status' => 'required',
             'name' => 'required|unique:company_users,name',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
 
         ];
         $trans = [
             'status.required' => __('This field is required.'),
             'name.required' => __('This field is required.'),
             'password.required' => __('This field is required.'),
-            'password.min' => __('Min size max be 8.'),
+            'password.min' => __('Min size max be 6.'),
         ];
 
         $v = Validator::make($request->all(), $rules, $trans);
@@ -112,7 +112,8 @@ class EmployeesController extends Controller
             abort(404);
         }
         $contact =  CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
-        return view('pages.dashboard.user.employees.edit', compact('user', 'contact'));
+        $url = env('APP_URL'). '/individual/' . $user->security_key;
+        return view('pages.dashboard.user.employees.edit', compact('user', 'contact', 'url'));
     }
 
 
@@ -142,7 +143,6 @@ class EmployeesController extends Controller
             'bg_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'position' => 'required|string|max:255',
             'address' => 'nullable|string|max:255',
             'latitude' => 'nullable|string|max:255',
             'longitude' => 'nullable|string|max:255',
@@ -278,13 +278,13 @@ class EmployeesController extends Controller
         $authId = Auth::guard('company_user')->id();
         $rules = [
             'id' => 'required',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
 
         ];
         $trans = [
             'id.required' => __('This field is required.'),
             'password.required' => __('This field is required.'),
-            'password.min' => __('Min size max be 8.'),
+            'password.min' => __('Min size max be 6.'),
         ];
 
         $v = Validator::make($request->all(), $rules, $trans);

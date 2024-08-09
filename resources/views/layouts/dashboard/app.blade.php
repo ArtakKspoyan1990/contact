@@ -61,6 +61,6 @@
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script src="{{ asset('argon/assets/js/argon-dashboard.js') }}"></script>
-    @stack('js');
+    @stack('js')
 </body>
 </html>

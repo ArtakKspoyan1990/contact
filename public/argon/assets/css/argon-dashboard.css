@@ -24866,3 +24866,33 @@ pre[class*=language-] {
     overflow: auto !important;
   }
 }
+
+
+#suggestions {
+  max-width: 468px;
+  position: absolute;
+  z-index: 1000;
+  background-color: aliceblue;
+  max-height: 208px;
+  overflow-y: auto;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4rem;
+  color: #495057;
+   background-clip: padding-box;
+  /* border: 1px solid #d2d6da; */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.5rem;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+#suggestions div {
+  padding: 8px;
+  cursor: pointer;
+}
+#suggestions div:hover {
+  background-color: #f0f0f0;
+}

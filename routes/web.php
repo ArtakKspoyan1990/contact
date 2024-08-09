@@ -45,6 +45,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/add', [CompanyController::class, 'add'])->name('companies.add');
         Route::post('/store', [CompanyController::class, 'store'])->name('companies.store');
     });
+
+    Route::prefix('dashboard')->middleware('auth:admin')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+    });
 });
 
 
@@ -80,12 +85,14 @@ Route::prefix('user')->name('company.')->group(function () {
         Route::get('/toggle/{id}/{status}', [EmployeesController::class, 'toggle'])->name('employees.toggle');
         Route::post('/destroy', [EmployeesController::class, 'destroy'])->name('employees.destroy');
     });
+
+    Route::prefix('dashboard')->middleware('auth:company_user')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
+    });
 });
 
-Route::prefix('dashboard')->middleware('auth:admin,company_user')->group(function () {
-    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
-    Route::post('/logout', [HomeController::class, 'logout'])->name('logout');
-});
+
 
 
 

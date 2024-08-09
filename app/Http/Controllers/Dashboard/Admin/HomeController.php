@@ -25,12 +25,11 @@ class HomeController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
         if($request->type == 'company') {
+            Auth::guard('company_user')->logout();
             return redirect()->route('company.login');
         }
+        Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
     }
 }

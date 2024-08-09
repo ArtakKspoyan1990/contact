@@ -32,7 +32,16 @@ class ContactController extends Controller
     {
         $user =  Auth::guard('company_user')->user();
         $contact =  CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
-        return view('pages.dashboard.user.edit', compact('user', 'contact'));
+        $url = null;
+        if( $user ->role == 1) {
+            $url =  env('APP_URL'). '/big-company/' . $user->security_key;
+        }elseif ($user->role == 2){
+            $url = env('APP_URL'). '/company/' . $user->security_key;
+        }else {
+            $url = env('APP_URL'). '/individual/' . $user->security_key;
+        }
+
+        return view('pages.dashboard.user.edit', compact('user', 'contact', 'url'));
     }
 
 
@@ -67,10 +76,6 @@ class ContactController extends Controller
             'longitude' => 'nullable|string|max:255',
         ];
 
-
-        if($user->role == 3) {
-            $rules['position'] = 'required|string|max:255';
-        }
 
         $trans = [
             'position.required' => __('This field is required.'),

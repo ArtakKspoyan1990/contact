@@ -16,6 +16,13 @@
                         <div class="d-flex justify-content-center">
                             <img src="{{ $user->qr() }}" alt="" style="width: 120px;">
                         </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="url" class="form-control" value="{{ $url }}" readonly>
+                                </div>
+                            </div>
+                        </div>
                     @endif
                     <form  method="POST" action="{{route('company.companies.contact.update')}}" enctype="multipart/form-data">
                         @csrf
@@ -89,7 +96,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="facebook">{{ __('Facebook') }}</label>
-                                        <input type="url" class="form-control" name="facebook" id="facebook" placeholder="https://www.facebook.com/L4VisitCard"
+                                        <input type="url" class="form-control" name="facebook" id="facebook" placeholder="https://www.facebook.com/********"
                                                value="{{$contact ? $contact->facebook : null}}">
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('facebook')}}</span>
                                     </div>
@@ -98,7 +105,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="messenger">{{ __('Messenger') }}</label>
-                                        <input type="url" class="form-control" name="messenger" id="messenger" placeholder="https://www.facebook.com/messages/t/101396131216437"
+                                        <input type="url" class="form-control" name="messenger" id="messenger" placeholder="https://www.facebook.com/messages/t/*********"
                                                value="{{$contact ? $contact->messenger : null}}">
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('messenger')}}</span>
                                     </div>
@@ -107,7 +114,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="instagram">{{ __('Instagram') }}</label>
-                                        <input type="url" class="form-control" name="instagram" id="instagram" placeholder="https://www.instagram.com/orderin_yerevan/reel/C0iyVPOsQw7/?next=%2Frachdavenportxx%2Ftagged%2F&hl=es"
+                                        <input type="url" class="form-control" name="instagram" id="instagram" placeholder="https://www.instagram.com/**********"
                                                value="{{$contact ? $contact->instagram : null}}">
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('instagram')}}</span>
                                     </div>
@@ -125,7 +132,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="youtube">{{ __('Youtube') }}</label>
-                                        <input type="url" class="form-control" name="youtube" id="youtube" placeholder="https://********"
+                                        <input type="url" class="form-control" name="youtube" id="youtube" placeholder="https://www.youtube.com/********"
                                                value="{{$contact ? $contact->youtube : null}}">
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('youtube')}}</span>
                                     </div>
@@ -140,7 +147,14 @@
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('disconts')}}</span>
                                     </div>
                                 </div>
-
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="location">{{ __('Location') }}</label>
+                                        <input type="url" class="form-control" name="location" id="location" readonly
+                                               value="{{$contact ? $contact->location : null}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
+                                    </div>
+                                </div>
                                 @if($user->role == 1 or $user->role == 2)
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -170,7 +184,7 @@
                                 @else
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label" for="position">{{ __('Position') }} <sup class="text-danger">*</sup></label>
+                                            <label class="control-label" for="position">{{ __('Position') }}</label>
                                             <input type="text" class="form-control" name="position" id="full-name" placeholder="Director"
                                                    value="{{ $contact ? $contact->position : null }}">
                                             <span class="text-danger text-xs pt-1">{{ $errors->first('position')}}</span>
@@ -189,26 +203,25 @@
                                         </div>
                                     </div>
                                 @endif
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label" for="location">{{ __('Location') }}</label>
-                                            <input type="url" class="form-control" name="location" id="location" readonly
-                                                   value="{{$contact ? $contact->location : null}}">
-                                            <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
-                                        </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="address">{{ __('Address') }}</label>
+                                        <input type="text" class="form-control" name="address" id="address"  readonly
+                                               value="{{$contact ? $contact->address : null}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('address')}}</span>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label" for="address">{{ __('Address') }}</label>
-                                            <input type="text" class="form-control" name="address" id="address"  readonly
-                                                   value="{{$contact ? $contact->address : null}}">
-                                            <span class="text-danger text-xs pt-1">{{ $errors->first('address')}}</span>
-                                        </div>
-                                        <input type="hidden" id="latitude" name="latitude">
-                                        <input type="hidden" id="longitude" name="longitude">
-                                        <div id="map" style="width: 100%; height: 400px;"></div>
+                                    <input type="hidden" id="latitude" name="latitude"  value="{{$contact ? $contact->latitude : null}}" >
+                                    <input type="hidden" id="longitude" name="longitude"  value="{{$contact ? $contact->longitude : null}}">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group" style="position: relative">
+                                        <label class="control-label" for="address-input">{{ __('Search') }}</label>
+                                        <input type="search" id="address-input" class="form-control" placeholder="Type address..." autocomplete="off">
+                                        <div id="suggestions"></div>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div id="map" style="width: 100%; height: 400px;"></div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center">
@@ -263,6 +276,8 @@
 @push('js')
     <script src="{{asset('js/jquery.min.js')}}"></script>
     <script>
+        let latitude = $('#latitude').val();
+        let longitude = $('#longitude').val();
         function readerImageDisplay( files, class_box, w ) {
             var reader = new FileReader();
             w = (w) ? w : 100;
@@ -273,40 +288,67 @@
         }
 
         ymaps.ready(init);
+
         function init() {
             var map = new ymaps.Map("map", {
-                center: [40.18111, 44.51361],
+                center: [ latitude ?  latitude : 40.18111, longitude ? longitude : 44.51361],
                 zoom: 10
             });
 
-            map.controls.remove('searchControl');
-            map.controls.remove('zoomControl');
-            map.controls.remove('geolocationControl');
-            map.controls.remove('routeEditor');
-            map.controls.remove('trafficControl');
-            map.controls.remove('typeSelector');
-            map.controls.remove('fullscreenControl');
+            // Remove unnecessary controls
+            map.controls.remove('searchControl');          // Remove the search input
+            map.controls.remove('zoomControl');            // Remove zoom controls
+            map.controls.remove('geolocationControl');     // Remove geolocation control
+            map.controls.remove('routeEditor');            // Remove route editor
+            map.controls.remove('trafficControl');         // Remove traffic control
+            map.controls.remove('typeSelector');           // Remove map type selector
+            map.controls.remove('fullscreenControl');      // Remove fullscreen button
 
-            var searchControl = new ymaps.control.SearchControl({
-                options: {
-                    noPlacemark: true,
-                    float: 'left',
-                    size: 'large'
+            var input = $('#address-input');
+            var suggestionsBox = $('#suggestions');
+
+            input.on('input', function () {
+                var query = $(this).val();
+                if (query.length > 2) {
+                    ymaps.geocode(query, { results: 5 }).then(function (res) {
+                        suggestionsBox.empty();
+                        res.geoObjects.each(function (geoObject) {
+                            var address = geoObject.getAddressLine();
+                            var suggestion = $('<div>').text(address);
+                            suggestion.on('click', function () {
+                                var coords = geoObject.geometry.getCoordinates();
+                                var locationLink = `https://yandex.com/maps/?ll=${coords[1]},${coords[0]}&z=14&text=${encodeURIComponent(address)}`;
+                                console.log(coords[0],coords[1], 555 )
+                                $('#address').val(address);
+                                $('input[name=latitude]').val(coords[0]);
+                                $('input[name=longitude]').val(coords[1]);
+                                $('#location').val(locationLink);
+
+                                input.val(address);
+                                suggestionsBox.empty();
+
+                                map.setCenter(coords, 14);
+                                map.geoObjects.removeAll();
+                                var placemark = new ymaps.Placemark(coords, {
+                                    balloonContent: address
+                                }, {
+                                    preset: 'islands#icon',
+                                    iconColor: '#0095b6'
+                                });
+                                map.geoObjects.add(placemark);
+                            });
+                            suggestionsBox.append(suggestion);
+                        });
+                    });
+                } else {
+                    suggestionsBox.empty();
                 }
             });
-            map.controls.add(searchControl);
 
-            searchControl.events.add('resultselect', function (e) {
-                var index = e.get('index');
-                searchControl.getResult(index).then(function (result) {
-                    var coords = result.geometry.getCoordinates();
-                    var address = result.getAddressLine();
-                    var locationLink = `https://yandex.com/maps/?ll=${coords[1]},${coords[0]}&z=14&text=${encodeURIComponent(address)}`;
-                    $('#address').val(address);
-                    $('#latitude').val(coords[0]);
-                    $('#longitude').val(coords[1]);
-                    $('#location').val(locationLink);
-                });
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#address-input, #suggestions').length) {
+                    suggestionsBox.empty();
+                }
             });
         }
     </script>

@@ -58,14 +58,14 @@ class CompaniesController extends Controller
         $rules = [
             'status' => 'required',
             'name' => 'required|unique:company_users,name',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
 
         ];
         $trans = [
             'status.required' => __('This field is required.'),
             'name.required' => __('This field is required.'),
             'password.required' => __('This field is required.'),
-            'password.min' => __('Min size max be 8.'),
+            'password.min' => __('Min size max be 6.'),
         ];
 
         $v = Validator::make($request->all(), $rules, $trans);
@@ -108,7 +108,9 @@ class CompaniesController extends Controller
             abort(404);
         }
         $contact =  CompanyContact::query()->where('company_user_id', '=', $user->id)->first();
-        return view('pages.dashboard.user.companies.edit', compact('user', 'contact'));
+
+        $url = env('APP_URL'). '/company/' . $user->security_key;
+        return view('pages.dashboard.user.companies.edit', compact('user', 'contact', 'url'));
     }
 
 
@@ -145,9 +147,6 @@ class CompaniesController extends Controller
         ];
 
 
-//        if($user->role == 3) {
-//            $rules['position'] = 'required|string|max:255';
-//        }
 
         $trans = [
             'id.required' => __('This field is required.'),
@@ -275,13 +274,13 @@ class CompaniesController extends Controller
          $authId = Auth::guard('company_user')->id();
          $rules = [
              'id' => 'required',
-             'password' => 'required|min:8',
+             'password' => 'required|min:6',
 
          ];
          $trans = [
              'id.required' => __('This field is required.'),
              'password.required' => __('This field is required.'),
-             'password.min' => __('Min size max be 8.'),
+             'password.min' => __('Min size max be 6.'),
          ];
 
          $v = Validator::make($request->all(), $rules, $trans);

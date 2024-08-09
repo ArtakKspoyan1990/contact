@@ -42,8 +42,8 @@ class CompanyLoginController extends Controller
         ]);
 
         if(Auth::guard('company_user')->attempt(['name' => $request->name, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            return redirect()->intended('dashboard');
+//            $request->session()->regenerate();
+            return redirect('/user/dashboard');
         }
 
         return back()->withErrors([
