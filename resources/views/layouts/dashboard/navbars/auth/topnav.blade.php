@@ -18,22 +18,22 @@
                 </div>
             </div>
             <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item d-flex align-items-center">
-                    <form role="form" method="post" action="{{ Auth::getDefaultDriver() == 'company_user' ? route('company.logout') : route('admin.logout') }}" id="logout-form">
+                {{--<li class="nav-item d-flex align-items-center">--}}
+                    {{--<form role="form" method="post" action="{{ Auth::getDefaultDriver() == 'company_user' ? route('company.logout') : route('admin.logout') }}" id="logout-form">--}}
 
-                        @csrf
-                        <input type="hidden" name="type"
-                               value="{{ Auth::getDefaultDriver() == 'company_user' ? 'company' : 'admin' }}">
-                        <a href="{{ Auth::getDefaultDriver() == 'company_user' ? route('company.logout') : route('admin.logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="nav-link text-white font-weight-bold px-0">
-                            <i class="fa fa-user me-sm-1"></i>
-                            <span class="d-sm-inline d-none">Log out</span>
-                        </a>
-                    </form>
-                </li>
+                        {{--@csrf--}}
+                        {{--<input type="hidden" name="type"--}}
+                               {{--value="{{ Auth::getDefaultDriver() == 'company_user' ? 'company' : 'admin' }}">--}}
+                        {{--<a href="{{ Auth::getDefaultDriver() == 'company_user' ? route('company.logout') : route('admin.logout') }}"--}}
+                            {{--onclick="event.preventDefault(); document.getElementById('logout-form').submit();"--}}
+                            {{--class="nav-link text-white font-weight-bold px-0">--}}
+                            {{--<i class="fa fa-user me-sm-1"></i>--}}
+                            {{--<span class="d-sm-inline d-none">Log out</span>--}}
+                        {{--</a>--}}
+                    {{--</form>--}}
+                {{--</li>--}}
                 <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
+                    <a href="javascript:void(0)" class="nav-link text-white p-0" id="iconNavbarSidenav">
                         <div class="sidenav-toggler-inner">
                             <i class="sidenav-toggler-line bg-white"></i>
                             <i class="sidenav-toggler-line bg-white"></i>
@@ -42,15 +42,15 @@
                     </a>
                 </li>
                 <li class="nav-item px-3 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-white p-0">
+                    <a href="javascript:void(0)" class="nav-link text-white p-0">
                         <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
                     </a>
                 </li>
                 <li class="nav-item dropdown pe-2 d-flex align-items-center">
-                    <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer"></i>
-                    </a>
+                    {{--<a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"--}}
+                        {{--data-bs-toggle="dropdown" aria-expanded="false">--}}
+                        {{--<i class="fa fa-bell cursor-pointer"></i>--}}
+                    {{--</a>--}}
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
                         <li class="mb-2">

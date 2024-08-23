@@ -1,5 +1,34 @@
 @extends('layouts.dashboard.app')
+@push('styles')
+    <style type="text/css">
+        .logo-picture {
+            transition: box-shadow .2s, opacity .2s;
+            margin: 0 auto;
+            background: #fff;
+            transform-origin: center;
+            will-change: transform;
+            z-index: 2;
+            width: 27%;
+            padding-top: 27%;
+            border-radius: 50%;
+            position: relative;
+        }
 
+
+        .logo-picture .logo-picture-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: scale-down;
+            object-position: center center;
+            box-shadow: 0 2px 4px 0 rgba(22, 29, 37, .1);
+            border-radius: 50%;
+        }
+
+    </style>
+@endpush
 @section('content')
     <main class="main-content  mt-0">
         <section>
@@ -8,12 +37,16 @@
                     <div class="row">
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                             <div class="card card-plain">
+                                <div class="logo-picture" data-image-type="profile">
+                                    <img class="logo-picture-img" alt="profile"
+                                         src="{{ asset('img/contact/logo.jpg') }}">
+                                </div>
                                 <div class="card-header pb-0 text-start">
                                     <h4 class="font-weight-bolder">Sign In</h4>
                                     <p class="mb-0">Enter your name and password to sign in</p>
                                 </div>
                                 <div class="card-body">
-                                    <form role="form" method="POST" action="{{ route('company.login.perform') }}">
+                                    <form role="form" method="POST" action="{{ route('login.perform') }}">
                                         @csrf
                                         @method('post')
                                         <div class="flex flex-col mb-3">
@@ -32,6 +65,13 @@
                                             <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
                                         </div>
                                     </form>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                    <h1 class="mb-1 text-lg mx-auto">
+                                        <a href="javascript:void(0)" class="text-primary text-gradient font-weight-bold">
+                                            Contact Us
+                                        </a>
+                                    </h1>
                                 </div>
                                 {{--<div class="card-footer text-center pt-0 px-lg-2 px-1">--}}
                                     {{--<p class="mb-1 text-sm mx-auto">--}}

@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [CardController::class, 'index'])->name('contact');
+//Route::get('/', [CardController::class, 'index'])->name('contact');
 Route::get('/employees', [CardController::class, 'employees'])->name('employees');
 Route::get('/branches', [CardController::class, 'branches'])->name('branches');
 Route::get('/employer', [CardController::class, 'employer'])->name('employer');
@@ -53,12 +53,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 
-Route::prefix('user')->name('company.')->group(function () {
-    Route::middleware('guest:company_user')->group(function () {
-        Route::get('/login', [CompanyLoginController::class, 'show'])->name('login');
-        Route::post('/login/perform', [CompanyLoginController::class, 'login'])->name('login.perform');
-    });
 
+Route::middleware('guest:company_user')->group(function () {
+    Route::get('/', [CompanyLoginController::class, 'show'])->name('login');
+    Route::post('/login/perform', [CompanyLoginController::class, 'login'])->name('login.perform');
+});
+
+Route::prefix('user')->name('company.')->group(function () {
     Route::prefix('contacts')->group(function () {
         Route::get('/', [ContactController::class, 'index'])->name('contacts');
         Route::post('/update', [ContactController::class, 'update'])->name('contacts.update');

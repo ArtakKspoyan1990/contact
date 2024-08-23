@@ -56,6 +56,15 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="control-label" for="sms">{{ __('Sms') }}</label>
+                                        <input type="tel" class="form-control" name="sms" id="sms" placeholder="+374********"
+                                               value="{{$contact ? $contact->sms : null}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('sms')}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="control-label" for="website">{{ __('Website') }}</label>
                                         <input type="url" class="form-control" name="website" id="website" placeholder="https://******.com"
                                                value="{{$contact ? $contact->website : null}}">
@@ -143,14 +152,7 @@
                                         <span class="text-danger text-xs pt-1">{{ $errors->first('disconts')}}</span>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label" for="location">{{ __('Location') }}</label>
-                                        <input type="url" class="form-control" name="location" id="location" readonly
-                                               value="{{$contact ? $contact->location : null}}">
-                                        <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
-                                    </div>
-                                </div>
+
                                 @if($user->role == 1 or $user->role == 2)
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -199,6 +201,14 @@
                                         </div>
                                     </div>
                                 @endif
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="location">{{ __('Location') }}</label>
+                                        <input type="url" class="form-control" name="location" id="location" readonly
+                                               value="{{$contact ? $contact->location : null}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('location')}}</span>
+                                    </div>
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label" for="address">{{ __('Address') }}</label>

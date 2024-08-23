@@ -59,6 +59,15 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="control-label" for="sms">{{ __('Sms') }}</label>
+                                        <input type="tel" class="form-control" name="sms" id="sms" placeholder="+374********"
+                                               value="{{$contact ? $contact->sms : null}}">
+                                        <span class="text-danger text-xs pt-1">{{ $errors->first('sms')}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="control-label" for="website">{{ __('Website') }}</label>
                                         <input type="url" class="form-control" name="website" id="website" placeholder="https://******.com"
                                                value="{{$contact ? $contact->website : null}}">

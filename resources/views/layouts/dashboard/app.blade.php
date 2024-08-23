@@ -17,6 +17,7 @@
     <!-- CSS Files -->
     <link id="pagestyle" href="{{ asset('argon/assets/css/argon-dashboard.css') }}" rel="stylesheet" />
     <script src="https://api-maps.yandex.ru/2.1/?apikey=55643f7b-447d-4da5-9f2b-e20dee0daa4a&lang=en_US" type="text/javascript"></script>
+    @stack('styles')
 </head>
 
 <body class="{{ $class ?? '' }}">

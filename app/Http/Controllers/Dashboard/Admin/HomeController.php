@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         if($request->type == 'company') {
             Auth::guard('company_user')->logout();
-            return redirect()->route('company.login');
+            return redirect()->route('login');
         }
         Auth::guard('admin')->logout();
         return redirect()->route('admin.login');
