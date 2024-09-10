@@ -52,7 +52,7 @@ class CompanyController extends Controller
             'status' => 'required',
             'role' => 'required',
             'name' => 'required|unique:company_users,name',
-            'password' => 'required|min:8',
+            'password' => 'required|min:6',
 
         ];
         $trans = [
